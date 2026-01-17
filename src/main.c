@@ -8,6 +8,7 @@
 #include "events.h"
 #include "i2c.h"
 #include "sensor.h"
+#include "servo.h"
 
 int main(void) {
     if (HAL_Init() != HAL_OK) {
@@ -39,6 +40,7 @@ int main(void) {
         .InterPolPositive = ENABLE,
         .InterNVICPriority = CUSTOM_SENSOR_INT_PRIORITY
     };
+
     if (
     Sensor_Config(
         app_state.pSensorHandle,
@@ -48,15 +50,37 @@ int main(void) {
         Error_TriggerFatal();
     }
 
-    // // Configure TIM2 CH1
-    // TIMERS_ConfigTIM2CH1(500);
+    // Configure Servo
+    Servo_Config_t Servo_Cfg = {
+        .xTIM = TIM2,
+        .Tim_Chan = TIM_CHANNEL_3,
+        .Tim_Ck_Hz = app_state.PCLK1,
+        .Period_Ms = 20,
+        .Start_Deg = 90
+    };
 
-    while (1);
+    if (
+        Servo_Config(
+            app_state.pServoHandle,
+            &Servo_Cfg
+        ) != SERVO_OK
+    ) {
+        Error_TriggerFatal();
+    }
+
+    uint8_t i = 1;
+    while (1) {
+        uint32_t val = 20 * i++;
+        if (val > 180) val = 0, i = 0;
+        Servo_SetPosition(app_state.pServoHandle, val);
+        HAL_Delay(1000);
+    };
 }
 
 void Event_NewSensorData(uint16_t value) {
     (void)value;
     // Todo: Update servo based on value...
+    // Servo_SetPosition(app_state.pServoHandle, 90);
 }
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
@@ -67,5 +91,21 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
         };
         Event_NewSensorData(value);
         return;
+    }
+}
+
+void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *Tim_Handle) {
+    if (Tim_Handle->Instance == TIM2) {
+        // Enable Clock Access
+        __HAL_RCC_TIM2_CLK_ENABLE();
+        __HAL_RCC_GPIOB_CLK_ENABLE();
+
+        // Configure PA0 for TIM2 CH1
+        GPIO_InitTypeDef GPIO_Config = {
+            .Pin = GPIO_PIN_10,
+            .Mode = GPIO_MODE_AF_PP,
+            .Alternate = GPIO_AF1_TIM2
+        };
+        HAL_GPIO_Init(GPIOB, &GPIO_Config);
     }
 }

@@ -7,6 +7,7 @@
 
 #include "stm32f4xx_hal.h"
 #include "sensor.h"
+#include "servo.h"
 
 typedef struct {
     uint32_t HLCK;
@@ -15,8 +16,8 @@ typedef struct {
     uint32_t PCLK2;
     uint32_t PCLK2_Tim;
     I2C_HandleTypeDef *pI2CHandle;
-    TIM_HandleTypeDef *pTIM2Handle;
     Sensor_Handle_t *pSensorHandle;
+    Servo_Handle_t *pServoHandle;
 } AppState_t;
 
 extern AppState_t app_state;

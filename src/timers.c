@@ -7,60 +7,78 @@
 
 #include "app_state.h"
 
-void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *TIM_Handle) {
-    if (TIM_Handle->Instance == TIM2) {
-        // Enable Clock Access
-        __HAL_RCC_TIM2_CLK_ENABLE();
-        __HAL_RCC_GPIOA_CLK_ENABLE();
+/**
+ * @brief Configure timer for PWM
+ * @warning HAL_TIM_PWM_MspInit should be implemented separately
+ * @param Tim_Handle Timer Handle
+ * @param cfg Config structure
+ */
+Timers_Error_e Timers_ConfigPWM(TIM_HandleTypeDef *Tim_Handle, Timers_PWMConfig_t *cfg) {
 
-        // Configure PA0 for TIM2 CH1
-        GPIO_InitTypeDef GPIO_Config = {
-            .Pin = GPIO_PIN_0,
-            .Mode = GPIO_MODE_AF_PP,
-            .Alternate = GPIO_AF1_TIM2
-        };
-        HAL_GPIO_Init(GPIOA, &GPIO_Config);
-    }
-}
+    uint32_t prescaler = (cfg->Tim_Ck_Hz / 1'000'000); // Get 1Mhz clock
+    uint32_t period = (cfg->Period_Ms * 1000); // Adjusted for 1Mhz clock
 
-HAL_StatusTypeDef TIMERS_ConfigTIM2CH1(uint16_t start_duty) {
-    HAL_StatusTypeDef status = HAL_OK;
-
-    app_state.pTIM2Handle->Instance = TIM2;
-    app_state.pTIM2Handle->Init = (TIM_Base_InitTypeDef) {
+    Tim_Handle->Init = (TIM_Base_InitTypeDef) {
         .CounterMode = TIM_COUNTERMODE_UP,
         .ClockDivision = TIM_CLOCKDIVISION_DIV1,
-        .Prescaler = CUSTOM_TIM2_PRESC,
-        .Period = CUSTOM_TIM2_ARR_VALUE,
+        .Prescaler = prescaler - 1,
+        .Period = period - 1,
         .AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE
     };
 
     // Init TIM2
-    if ((status = HAL_TIM_PWM_Init(app_state.pTIM2Handle)) != HAL_OK) {
-        return status;
+    if (HAL_TIM_PWM_Init(Tim_Handle) != HAL_OK) {
+        return TIMERS_ERR;
     }
 
     // Configure TIM Channel 1
     TIM_OC_InitTypeDef TIM2_OC_Config = {
         .OCMode = TIM_OCMODE_PWM1,
-        .Pulse = start_duty - 1
+        .OCPolarity = TIM_OCPOLARITY_HIGH,
+        .Pulse = ((cfg->Duty * period) / 100)
     };
-    if ((status = HAL_TIM_PWM_ConfigChannel(app_state.pTIM2Handle, &TIM2_OC_Config, TIM_CHANNEL_1)) != HAL_OK) {
-        return status;
+    if (HAL_TIM_PWM_ConfigChannel(Tim_Handle, &TIM2_OC_Config, cfg->Channel) != HAL_OK) {
+        return TIMERS_CHAN_CFG_ERR;
     }
 
-    // Start TIM2
-    if ((status = HAL_TIM_PWM_Start(app_state.pTIM2Handle, TIM_CHANNEL_1)) != HAL_OK) {
-        return status;
+    return TIMERS_OK;
+}
+
+/**
+ * @brief Starts PWM Timer
+ * @param Tim_Handle Timer Handle
+ * @param chan Timer Channel
+ *        This parameter can be one of the following values:
+ *            @arg TIM_CHANNEL_1: TIM Channel 1 selected
+ *            @arg TIM_CHANNEL_2: TIM Channel 2 selected
+ *            @arg TIM_CHANNEL_3: TIM Channel 3 selected
+ *            @arg TIM_CHANNEL_4: TIM Channel 4 selected
+ */
+Timers_Error_e Timers_StartPWM(TIM_HandleTypeDef *Tim_Handle, uint32_t chan) {
+    if (HAL_TIM_PWM_Start(Tim_Handle, chan) != HAL_OK) {
+        return TIMERS_ERR;
     }
 
-    return status;
+    return TIMERS_OK;
 }
 
-void TIMERS_SetTIM2CH1_DutyCycle(uint16_t value) {
-    __HAL_TIM_SET_COMPARE(app_state.pTIM2Handle, TIM_CHANNEL_1, value > 0 ? value - 1 : 0);
-}
+/**
+ * @brief Sets PWM Duty Cycle
+ * @param Tim_Handle Timer Handle
+ * @param chan Timer Channel
+ *        This parameter can be one of the following values:
+ *            @arg TIM_CHANNEL_1: TIM Channel 1 selected
+ *            @arg TIM_CHANNEL_2: TIM Channel 2 selected
+ *            @arg TIM_CHANNEL_3: TIM Channel 3 selected
+ *            @arg TIM_CHANNEL_4: TIM Channel 4 selected
+ * @param duty PWM Duty Cycle (between 0 and 100)
+ */
+Timers_Error_e Timers_PWMSetDutyCycle(TIM_HandleTypeDef *Tim_Handle, uint32_t chan, uint32_t duty) {
+    if (duty > 100) return TIMERS_INVALID_DUTY;
 
-TIM_HandleTypeDef *TIMERS_TIM2CH1_GetHandle() {
-    return app_state.pTIM2Handle;
+    uint32_t period = Tim_Handle->Init.Period + 1;
+    uint32_t new_duty = ((duty * period) / 100);
+    __HAL_TIM_SET_COMPARE(Tim_Handle, chan, new_duty > 0 ? new_duty - 1 : 0);
+
+    return TIMERS_OK;
 }

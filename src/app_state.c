@@ -5,8 +5,8 @@
 #include "app_state.h"
 
 I2C_HandleTypeDef I2C_Handle = {};
-TIM_HandleTypeDef TIM2_Handle = {};
 Sensor_Handle_t Sensor_Handle = {};
+Servo_Handle_t Servo_Handle = {};
 
 AppState_t app_state = {
     .HLCK = 0,
@@ -15,6 +15,6 @@ AppState_t app_state = {
     .PCLK2 = 0,
     .PCLK2_Tim = 0,
     .pI2CHandle = &I2C_Handle,
-    .pTIM2Handle = &TIM2_Handle,
-    .pSensorHandle = &Sensor_Handle
+    .pSensorHandle = &Sensor_Handle,
+    .pServoHandle = &Servo_Handle
 };
