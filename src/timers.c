@@ -14,6 +14,7 @@
  * @param cfg Config structure
  */
 Timers_Error_e Timers_ConfigPWM(TIM_HandleTypeDef *Tim_Handle, Timers_PWMConfig_t *cfg) {
+    assert_param(IS_TIM_CHANNELS(cfg->Channel));
 
     uint32_t prescaler = (cfg->Tim_Ck_Hz / 1'000'000); // Get 1Mhz clock
     uint32_t period = (cfg->Period_Ms * 1000); // Adjusted for 1Mhz clock

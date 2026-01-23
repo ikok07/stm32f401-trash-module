@@ -7,6 +7,7 @@
 #include "error.h"
 #include "events.h"
 #include "i2c.h"
+#include "power.h"
 #include "sensor.h"
 #include "servo.h"
 
@@ -29,26 +30,28 @@ int main(void) {
     };
 
     // Configure VL53L1X Driver
-    Sensor_Config_t Sensor_Cfg = {
-        .Mode = SENSOR_MODE_BELOW,
-        .DistanceMode = SENSOR_DISTANCEMODE_SHORT,
-        .InterMeasMs = 500,
-        .TimingBudgetMs = SENSOR_TIMINGBUDGET_100,
-        .MinVal = 200,
-        .InterGPIO = GPIOB,
-        .InterGPIOPin = GPIO_PIN_5,
-        .InterPolPositive = ENABLE,
-        .InterNVICPriority = CUSTOM_SENSOR_INT_PRIORITY
-    };
+    // Sensor_Config_t Sensor_Cfg = {
+    //     .Mode = SENSOR_MODE_OUT_OF_DISTANCE,
+    //     .DistanceMode = SENSOR_DISTANCEMODE_SHORT,
+    //     .InterMeasMs = 500,
+    //     .TimingBudgetMs = SENSOR_TIMINGBUDGET_100,
+    //     .MinVal = 200,
+    //     .MaxVal = 500,
+    //     .InterGPIO = GPIOB,
+    //     .InterGPIOPin = GPIO_PIN_5,
+    //     .InterPolPositive = ENABLE,
+    //     .InterNVICPriority = CUSTOM_SENSOR_INT_PRIORITY
+    // };
+    //
+    // if (
+    // Sensor_Config(
+    //     app_state.pSensorHandle,
+    //     Sensor_Cfg
+    // ) != SENSOR_ERROR_OK
+    // ) {
+    //     Error_TriggerFatal();
+    // }
 
-    if (
-    Sensor_Config(
-        app_state.pSensorHandle,
-        Sensor_Cfg
-    ) != SENSOR_ERROR_OK
-    ) {
-        Error_TriggerFatal();
-    }
 
     // Configure Servo
     Servo_Config_t Servo_Cfg = {
@@ -56,7 +59,8 @@ int main(void) {
         .Tim_Chan = TIM_CHANNEL_3,
         .Tim_Ck_Hz = app_state.PCLK1,
         .Period_Ms = 20,
-        .Start_Deg = 90
+        .Max_Deg = 180,
+        .Start_Deg = 0
     };
 
     if (
@@ -68,18 +72,16 @@ int main(void) {
         Error_TriggerFatal();
     }
 
-    uint8_t i = 1;
-    while (1) {
-        uint32_t val = 20 * i++;
-        if (val > 180) val = 0, i = 0;
-        Servo_SetPosition(app_state.pServoHandle, val);
-        HAL_Delay(1000);
-    };
+    PWR_EnterStopMode();
+
+    while (1);
 }
 
 void Event_NewSensorData(uint16_t value) {
     (void)value;
     // Todo: Update servo based on value...
+    // If opened -> keep servo at open angle and do not sleep
+    // Else -> reset servo position and enter sleep
     // Servo_SetPosition(app_state.pServoHandle, 90);
 }
 
@@ -100,7 +102,7 @@ void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *Tim_Handle) {
         __HAL_RCC_TIM2_CLK_ENABLE();
         __HAL_RCC_GPIOB_CLK_ENABLE();
 
-        // Configure PA0 for TIM2 CH1
+        // Configure PB10 for TIM2 CH3
         GPIO_InitTypeDef GPIO_Config = {
             .Pin = GPIO_PIN_10,
             .Mode = GPIO_MODE_AF_PP,

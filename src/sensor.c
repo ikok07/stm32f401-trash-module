@@ -17,6 +17,10 @@ void config_gpio();
  * @param cfg Configuration struct
  */
 Sensor_Error_e Sensor_Config(Sensor_Handle_t *Sensor_Handle, Sensor_Config_t cfg) {
+
+    assert_param(cfg.MinVal <= cfg.MaxVal);
+    assert_param(cfg.MaxVal >= cfg.MinVal);
+
     Sensor_Error_e status = SENSOR_ERROR_OK;
     Sensor_Handle->Address = CUSTOM_SENSOR_I2C_ADDRESS;
     Sensor_Handle->Config = cfg;
@@ -92,12 +96,14 @@ Sensor_Error_e Sensor_Config(Sensor_Handle_t *Sensor_Handle, Sensor_Config_t cfg
  * @param value Pointer where to write the sensor measurement
  */
 Sensor_Error_e Sensor_Read(Sensor_Handle_t *Sensor_Handle, uint16_t *value) {
+    assert_param(value != NULL);
+
     uint16_t distance = -1;
     if (VL53L1X_GetDistance(Sensor_Handle->Address, &distance) != VL53L1X_ERROR_NONE) {
         return SENSOR_ERROR_READ_FAIL;
     }
 
-    *value = distance;
+    if (value) *value = distance;
     return SENSOR_ERROR_OK;
 }
 

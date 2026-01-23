@@ -13,14 +13,19 @@
  */
 Servo_Error_e Servo_Config(Servo_Handle_t *Servo_Handle, Servo_Config_t *cfg) {
 
+    assert_param(IS_TIM_INSTANCE(cfg->xTIM));
+    assert_param(IS_TIM_CHANNELS(cfg->Tim_Chan));
+    assert_param(cfg->Start_Deg <= cfg->Max_Deg);
+
     // Configure timer for PWM generation
     Servo_Handle->Tim_Handle.Instance = cfg->xTIM;
     Servo_Handle->Tim_Chan = cfg->Tim_Chan;
+    Servo_Handle->Max_Deg = cfg->Max_Deg;
     Timers_PWMConfig_t PWM_Config = {
         .Tim_Ck_Hz = cfg->Tim_Ck_Hz,
         .Period_Ms = cfg->Period_Ms,
         .Channel = cfg->Tim_Chan,
-        .Duty = (cfg->Start_Deg * 100) / 180
+        .Duty = (cfg->Start_Deg * 100) / Servo_Handle->Max_Deg
     };
 
     if (Timers_ConfigPWM(&Servo_Handle->Tim_Handle, &PWM_Config) != TIMERS_OK) {
@@ -41,7 +46,7 @@ Servo_Error_e Servo_Config(Servo_Handle_t *Servo_Handle, Servo_Config_t *cfg) {
  * @param deg 0 - 180 Degrees
  */
 Servo_Error_e Servo_SetPosition(Servo_Handle_t *Servo_Handle, uint16_t deg) {
-    if (deg < 0 || deg > 180) {
+    if (deg < 0 || deg > Servo_Handle->Max_Deg) {
         return SERVO_POS_ERR;
     }
 
@@ -49,7 +54,7 @@ Servo_Error_e Servo_SetPosition(Servo_Handle_t *Servo_Handle, uint16_t deg) {
         Timers_PWMSetDutyCycle(
             &Servo_Handle->Tim_Handle,
             Servo_Handle->Tim_Chan,
-            (deg * 100) / 180
+            (deg * 100) / Servo_Handle->Max_Deg
         ) != TIMERS_OK
     ) {
         return SERVO_TIM_ERR;
