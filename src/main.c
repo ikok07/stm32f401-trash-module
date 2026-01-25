@@ -42,7 +42,7 @@ int main(void) {
         .Tim_Ck_Hz = app_state.PCLK1,
         .Period_Ms = 20,
         .Max_Deg = 180,
-        .Start_Deg = 90
+        .Start_Deg = 0
     };
 
     if (
@@ -55,9 +55,7 @@ int main(void) {
     }
 
     // Check if device was in standby mode
-    if (__HAL_PWR_GET_FLAG(PWR_FLAG_SB)) {
-        __HAL_PWR_CLEAR_FLAG(PWR_FLAG_SB);
-
+    if (PWR_CheckDeviceWasSTBY()) {
         uint16_t value = -1;
         if (Sensor_Read(app_state.pSensorHandle, &value) != SENSOR_ERROR_OK) {
             Error_Trigger(3000);
@@ -67,34 +65,33 @@ int main(void) {
         // First boot: Configure VL53L1X Driver and enable device stop
         should_stop_device = 1;
 
-        Sensor_Config_t Sensor_Cfg = {
-            .Mode = SENSOR_MODE_OUT_OF_DISTANCE,
-            .DistanceMode = SENSOR_DISTANCEMODE_SHORT,
-            .InterMeasMs = 500,
-            .TimingBudgetMs = SENSOR_TIMINGBUDGET_100,
-            .MinVal = 0,
-            .MaxVal = SENSOR_RANGE_OPEN_TRIGGER,
-            .InterGPIO = GPIOA,
-            .InterGPIOPin = GPIO_PIN_0,
-            .InterPolPositive = ENABLE,
-            .InterNVICPriority = CUSTOM_SENSOR_INT_PRIORITY
-        };
-
-        if (
-        Sensor_Config(
-            app_state.pSensorHandle,
-            Sensor_Cfg
-        ) != SENSOR_ERROR_OK
-        ) {
-            Error_TriggerFatal();
-        }
+        // Sensor_Config_t Sensor_Cfg = {
+        //     .Mode = SENSOR_MODE_OUT_OF_DISTANCE,
+        //     .DistanceMode = SENSOR_DISTANCEMODE_SHORT,
+        //     .InterMeasMs = 500,
+        //     .TimingBudgetMs = SENSOR_TIMINGBUDGET_100,
+        //     .MinVal = 0,
+        //     .MaxVal = SENSOR_RANGE_OPEN_TRIGGER,
+        //     .InterGPIO = GPIOA,
+        //     .InterGPIOPin = GPIO_PIN_0,
+        //     .InterPolPositive = ENABLE,
+        //     .InterNVICPriority = CUSTOM_SENSOR_INT_PRIORITY
+        // };
+        //
+        // if (
+        // Sensor_Config(
+        //     app_state.pSensorHandle,
+        //     Sensor_Cfg
+        // ) != SENSOR_ERROR_OK
+        // ) {
+        //     Error_TriggerFatal();
+        // }
     };
 
     while (!should_stop_device);
 
-    // Enable WKUP pin and enter standby mode
-    HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1);
-    HAL_PWR_EnterSTANDBYMode();
+    // Enter standby mode
+    PWR_EnterStandbyMode();
 }
 
 void Event_NewSensorData(uint16_t value) {

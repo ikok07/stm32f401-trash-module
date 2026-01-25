@@ -7,6 +7,6 @@
 
 #include "stm32f4xx_hal.h"
 
-__weak void Event_NewSensorData(uint16_t value);
+void Event_NewSensorData(uint16_t value);
 
 #endif //EVENT_HANDLER_H

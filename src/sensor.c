@@ -99,9 +99,15 @@ Sensor_Error_e Sensor_Read(Sensor_Handle_t *Sensor_Handle, uint16_t *value) {
     assert_param(value != NULL);
 
     uint16_t distance = -1;
-    if (VL53L1X_GetDistance(Sensor_Handle->Address, &distance) != VL53L1X_ERROR_NONE) {
-        return SENSOR_ERROR_READ_FAIL;
-    }
+    #ifdef SENSOR_SIMULATE
+        #ifdef SENSOR_DUMMY_VALUE
+            distance = SENSOR_DUMMY_VALUE;
+        #endif
+    #else
+        if (VL53L1X_GetDistance(Sensor_Handle->Address, &distance) != VL53L1X_ERROR_NONE) {
+            return SENSOR_ERROR_READ_FAIL;
+        }
+    #endif
 
     if (value) *value = distance;
     return SENSOR_ERROR_OK;

@@ -5,6 +5,9 @@
 #ifndef POWER_H
 #define POWER_H
 
+#include <stdint.h>
+
+uint8_t PWR_CheckDeviceWasSTBY();
 void PWR_EnterStandbyMode();
 
 #endif //POWER_H

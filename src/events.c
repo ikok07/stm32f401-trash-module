@@ -8,4 +8,4 @@
  * @brief Callback function to execute code on new sensor data
  * @param value The sensor value
  */
-void Event_NewSensorData(uint16_t value) {}
+__weak void Event_NewSensorData(uint16_t value) {}
