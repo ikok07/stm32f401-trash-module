@@ -11,6 +11,12 @@
 #include "sensor.h"
 #include "servo.h"
 
+#define SERVO_CLOSE_ANGLE               0
+#define SERVO_OPEN_ANGLE                90
+#define SENSOR_RANGE_OPEN_TRIGGER       500
+
+volatile uint8_t should_stop_device = 0;
+
 int main(void) {
     if (HAL_Init() != HAL_OK) {
         while (1);
@@ -29,30 +35,6 @@ int main(void) {
         Error_TriggerFatal();
     };
 
-    // Configure VL53L1X Driver
-    // Sensor_Config_t Sensor_Cfg = {
-    //     .Mode = SENSOR_MODE_OUT_OF_DISTANCE,
-    //     .DistanceMode = SENSOR_DISTANCEMODE_SHORT,
-    //     .InterMeasMs = 500,
-    //     .TimingBudgetMs = SENSOR_TIMINGBUDGET_100,
-    //     .MinVal = 200,
-    //     .MaxVal = 500,
-    //     .InterGPIO = GPIOB,
-    //     .InterGPIOPin = GPIO_PIN_5,
-    //     .InterPolPositive = ENABLE,
-    //     .InterNVICPriority = CUSTOM_SENSOR_INT_PRIORITY
-    // };
-    //
-    // if (
-    // Sensor_Config(
-    //     app_state.pSensorHandle,
-    //     Sensor_Cfg
-    // ) != SENSOR_ERROR_OK
-    // ) {
-    //     Error_TriggerFatal();
-    // }
-
-
     // Configure Servo
     Servo_Config_t Servo_Cfg = {
         .xTIM = TIM2,
@@ -60,7 +42,7 @@ int main(void) {
         .Tim_Ck_Hz = app_state.PCLK1,
         .Period_Ms = 20,
         .Max_Deg = 180,
-        .Start_Deg = 0
+        .Start_Deg = 90
     };
 
     if (
@@ -72,21 +54,64 @@ int main(void) {
         Error_TriggerFatal();
     }
 
-    PWR_EnterStopMode();
+    // Check if device was in standby mode
+    if (__HAL_PWR_GET_FLAG(PWR_FLAG_SB)) {
+        __HAL_PWR_CLEAR_FLAG(PWR_FLAG_SB);
 
-    while (1);
+        uint16_t value = -1;
+        if (Sensor_Read(app_state.pSensorHandle, &value) != SENSOR_ERROR_OK) {
+            Error_Trigger(3000);
+        };
+        Event_NewSensorData(value);
+    } else {
+        // First boot: Configure VL53L1X Driver and enable device stop
+        should_stop_device = 1;
+
+        Sensor_Config_t Sensor_Cfg = {
+            .Mode = SENSOR_MODE_OUT_OF_DISTANCE,
+            .DistanceMode = SENSOR_DISTANCEMODE_SHORT,
+            .InterMeasMs = 500,
+            .TimingBudgetMs = SENSOR_TIMINGBUDGET_100,
+            .MinVal = 0,
+            .MaxVal = SENSOR_RANGE_OPEN_TRIGGER,
+            .InterGPIO = GPIOA,
+            .InterGPIOPin = GPIO_PIN_0,
+            .InterPolPositive = ENABLE,
+            .InterNVICPriority = CUSTOM_SENSOR_INT_PRIORITY
+        };
+
+        if (
+        Sensor_Config(
+            app_state.pSensorHandle,
+            Sensor_Cfg
+        ) != SENSOR_ERROR_OK
+        ) {
+            Error_TriggerFatal();
+        }
+    };
+
+    while (!should_stop_device);
+
+    // Enable WKUP pin and enter standby mode
+    HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1);
+    HAL_PWR_EnterSTANDBYMode();
 }
 
 void Event_NewSensorData(uint16_t value) {
     (void)value;
-    // Todo: Update servo based on value...
-    // If opened -> keep servo at open angle and do not sleep
-    // Else -> reset servo position and enter sleep
-    // Servo_SetPosition(app_state.pServoHandle, 90);
+    uint8_t opened = value < SENSOR_RANGE_OPEN_TRIGGER;
+    if (opened) {
+        Servo_SetPosition(app_state.pServoHandle, SERVO_OPEN_ANGLE);
+        HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+    } else {
+        Servo_SetPosition(app_state.pServoHandle, SERVO_CLOSE_ANGLE);
+        should_stop_device = 1;
+    }
 }
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
-    if (GPIO_Pin == GPIO_PIN_5) {
+    if (GPIO_Pin == GPIO_PIN_0) {
+        // Sensor interrupt while device NOT in standby mode
         uint16_t value = -1;
         if (Sensor_Read(app_state.pSensorHandle, &value) != SENSOR_ERROR_OK) {
             Error_Trigger(3000);
@@ -99,8 +124,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *Tim_Handle) {
     if (Tim_Handle->Instance == TIM2) {
         // Enable Clock Access
-        __HAL_RCC_TIM2_CLK_ENABLE();
         __HAL_RCC_GPIOB_CLK_ENABLE();
+        __HAL_RCC_TIM2_CLK_ENABLE();
 
         // Configure PB10 for TIM2 CH3
         GPIO_InitTypeDef GPIO_Config = {

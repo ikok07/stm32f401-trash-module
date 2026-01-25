@@ -6,10 +6,7 @@
 
 #include "stm32f4xx_hal.h"
 
-void PWR_EnterStopMode() {
-    // Disable SysTick
-    HAL_SuspendTick();
-
+void PWR_EnterStandbyMode() {
     // Enter stop mode
-    HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
+    HAL_PWR_EnterSTANDBYMode();
 }

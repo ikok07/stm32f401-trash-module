@@ -5,6 +5,6 @@
 #ifndef POWER_H
 #define POWER_H
 
-void PWR_EnterStopMode();
+void PWR_EnterStandbyMode();
 
 #endif //POWER_H
