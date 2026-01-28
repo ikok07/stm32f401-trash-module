@@ -13,8 +13,8 @@
 #define CUSTOM_SENSOR_CONN_TIMEOUT          (3000)
 
 // TEST ONLY
-#define SENSOR_SIMULATE                 1
-#define SENSOR_DUMMY_VALUE              200
+// #define SENSOR_SIMULATE                 1
+// #define SENSOR_DUMMY_VALUE              200
 
 typedef enum {
     SENSOR_ERROR_OK,

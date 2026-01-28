@@ -140,7 +140,7 @@ void config_gpio() {
         .Mode = GPIO_MODE_INPUT,
         .Pin = app_state.pSensorHandle->Config.InterGPIOPin,
         .Pull = app_state.pSensorHandle->Config.InterPolPositive ? GPIO_PULLDOWN : GPIO_PULLUP,
-        .Speed = GPIO_SPEED_MEDIUM
+        .Speed = GPIO_SPEED_LOW,
     };
     HAL_GPIO_Init(app_state.pSensorHandle->Config.InterGPIO, &GPIO_Config);
 

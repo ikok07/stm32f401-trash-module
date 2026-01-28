@@ -128,7 +128,8 @@ void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *Tim_Handle) {
         GPIO_InitTypeDef GPIO_Config = {
             .Pin = GPIO_PIN_10,
             .Mode = GPIO_MODE_AF_PP,
-            .Alternate = GPIO_AF1_TIM2
+            .Alternate = GPIO_AF1_TIM2,
+            .Speed = GPIO_SPEED_LOW
         };
         HAL_GPIO_Init(GPIOB, &GPIO_Config);
     }
