@@ -18,6 +18,7 @@ typedef struct {
     I2C_HandleTypeDef *pI2CHandle;
     Sensor_Handle_t *pSensorHandle;
     Servo_Handle_t *pServoHandle;
+    USART_HandleTypeDef *pErrUSARTHandle;
 } AppState_t;
 
 extern AppState_t app_state;

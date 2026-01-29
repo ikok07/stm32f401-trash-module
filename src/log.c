@@ -1,0 +1,119 @@
+//
+// Created by Kok on 1/29/26.
+//
+
+#include "log.h"
+
+#include <stdio.h>
+#include <string.h>
+
+#include "stm32f4xx_hal.h"
+
+static LOGGER_TypeDef hlogger;
+
+LOGGER_ErrorTypeDef LOGGER_Init() {
+    hlogger = (LOGGER_TypeDef) {
+        .Initialized = 1,
+        .Enabled = 0,
+        .FatalOccurred = 0
+    };
+    if (LOGGER_InitCB() != 0) return LOGGER_ERROR_IMPLEMENTATION;
+    return LOGGER_ERROR_OK;
+}
+
+LOGGER_ErrorTypeDef LOGGER_DeInit() {
+    hlogger = (LOGGER_TypeDef) {0};
+    if (LOGGER_DeInitCB() != 0) return LOGGER_ERROR_IMPLEMENTATION;
+    return LOGGER_ERROR_OK;
+}
+
+LOGGER_ErrorTypeDef LOGGER_ReInit() {
+    LOGGER_ErrorTypeDef error = LOGGER_DeInit();
+    if (error != LOGGER_ERROR_OK) return error;
+    return LOGGER_Init();
+}
+
+LOGGER_ErrorTypeDef LOGGER_Log(LOGGER_LevelTypeDef level, char *msg) {
+    if (!hlogger.Initialized) return LOGGER_ERROR_UNINITIALIZED;
+
+    if (hlogger.ActiveLevel > level) {
+        // Logger's active level is higher than the provided one.
+        return LOGGER_ERROR_OK;
+    }
+
+    if (strlen(msg) > LOGGER_MSG_MAX_LEN) return LOGGER_ERROR_MESSAGE_LEN;
+
+    char formatted_msg[LOGGER_MSG_MAX_LEN];
+    LOGGER_EventTypeDef event = {
+        .Level = level,
+        .msg = msg
+    };
+    if (LOGGER_FormatCB(&event, formatted_msg, sizeof(formatted_msg)) != 0) return LOGGER_ERROR_IMPLEMENTATION;
+
+    event.msg = formatted_msg;
+
+    if (level == LOGGER_LEVEL_FATAL) {
+        if (LOGGER_FatalCB(&event) != 0) return LOGGER_ERROR_IMPLEMENTATION;
+    } else {
+        if (LOGGER_LogCB(&event) != 0) return LOGGER_ERROR_IMPLEMENTATION;
+    }
+
+    return LOGGER_ERROR_OK;
+}
+
+LOGGER_ErrorTypeDef LOGGER_Enable() {
+    if (!hlogger.Initialized) return LOGGER_ERROR_UNINITIALIZED;
+    hlogger.Enabled = 1;
+    return LOGGER_ERROR_OK;
+}
+
+LOGGER_ErrorTypeDef LOGGER_Disable() {
+    if (!hlogger.Initialized) return LOGGER_ERROR_UNINITIALIZED;
+    hlogger.Enabled = 0;
+    return LOGGER_ERROR_OK;
+}
+
+/**
+ * @brief Configures the level of the messages which the logger will output
+ * @param level Logger level
+ */
+LOGGER_ErrorTypeDef LOGGER_SetLevel(LOGGER_LevelTypeDef level) {
+    if (!hlogger.Initialized) return LOGGER_ERROR_UNINITIALIZED;
+    hlogger.ActiveLevel = level;
+    return LOGGER_ERROR_OK;
+}
+
+/**
+ * @brief Setup peripherals required for logger to function properly. This method is called inside LOGGER_Init()
+ * @return 0 -> OK\n 1 -> ERROR
+ */
+__weak uint8_t LOGGER_InitCB() {return 0;}
+
+/**
+ * @brief Use the configured peripherals to output log message
+ * @param event Logger event
+ * @return 0 -> OK\n 1 -> ERROR
+ */
+__weak uint8_t LOGGER_LogCB(LOGGER_EventTypeDef *event) {return 0;}
+
+/**
+ * @brief Handle cases where the error is fatal. This method is called when LOGGER_Log() is called with fatal log.
+ * @param event Logger event
+ * @return 0 -> OK\n 1 -> ERROR
+ */
+__weak uint8_t LOGGER_FatalCB(LOGGER_EventTypeDef *event) {return 0;}
+
+__weak uint8_t LOGGER_FormatCB(LOGGER_EventTypeDef *event, char *buffer, uint16_t len) {
+    return snprintf(buffer, len, "%s - %s", LOGGER_GetLevelLabel(event->Level), event->msg) >= len;
+}
+
+char *LOGGER_GetLevelLabel(LOGGER_LevelTypeDef level) {
+    switch (level) {
+        case LOGGER_LEVEL_DEBUG: return "DEBUG";
+        case LOGGER_LEVEL_INFO: return "INFO";
+        case LOGGER_LEVEL_WARNING: return "WARNING";
+        case LOGGER_LEVEL_ERROR: return "ERROR";
+        case LOGGER_LEVEL_FATAL: return "FATAL";
+        default: return "UNKNOWN";
+    };
+}

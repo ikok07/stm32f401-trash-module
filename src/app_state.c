@@ -4,9 +4,10 @@
 
 #include "app_state.h"
 
-I2C_HandleTypeDef I2C_Handle = {};
-Sensor_Handle_t Sensor_Handle = {};
-Servo_Handle_t Servo_Handle = {};
+I2C_HandleTypeDef I2CHandle = {};
+Sensor_Handle_t SensorHandle = {};
+Servo_Handle_t ServoHandle = {};
+USART_HandleTypeDef ErrUSARTHandle = {};
 
 AppState_t app_state = {
     .HLCK = 0,
@@ -14,7 +15,8 @@ AppState_t app_state = {
     .PCLK1_Tim = 0,
     .PCLK2 = 0,
     .PCLK2_Tim = 0,
-    .pI2CHandle = &I2C_Handle,
-    .pSensorHandle = &Sensor_Handle,
-    .pServoHandle = &Servo_Handle
+    .pI2CHandle = &I2CHandle,
+    .pSensorHandle = &SensorHandle,
+    .pServoHandle = &ServoHandle,
+    .pErrUSARTHandle = &ErrUSARTHandle
 };
