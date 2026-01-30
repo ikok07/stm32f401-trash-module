@@ -5,7 +5,7 @@
 #include "stm32f4xx_hal.h"
 #include <stdio.h>
 
-#include "log.h"
+#include "../lib/logger/include/log.h"
 
 
 #ifdef USE_FULL_ASSERT

@@ -21,7 +21,8 @@ typedef enum {
     LOGGER_ERROR_OK,
     LOGGER_ERROR_IMPLEMENTATION,    // An error occurred in the system-specific logger implementation
     LOGGER_ERROR_UNINITIALIZED,
-    LOGGER_ERROR_MESSAGE_LEN        // The passed message is longer than the allowed maximum (LOGGER_MSG_MAX_LEN)
+    LOGGER_ERROR_MESSAGE_LEN,        // The passed message is longer than the allowed maximum (LOGGER_MSG_MAX_LEN)
+    LOGGER_ERROR_DISABLED
 } LOGGER_ErrorTypeDef;
 
 typedef struct {
@@ -38,6 +39,9 @@ typedef struct {
 
 /* ------ Main methods ------ */
 
+void LOGGER_InitBasic();
+void LOGGER_LogBasic();
+
 LOGGER_ErrorTypeDef LOGGER_Init();
 LOGGER_ErrorTypeDef LOGGER_DeInit();
 LOGGER_ErrorTypeDef LOGGER_ReInit();
@@ -50,6 +54,9 @@ LOGGER_ErrorTypeDef LOGGER_Disable();
 LOGGER_ErrorTypeDef LOGGER_SetLevel(LOGGER_LevelTypeDef level);
 
 /* ------ Callbacks ------ */
+
+void LOGGER_InitBasicCB();
+void LOGGER_LogBasicCB();
 
 uint8_t LOGGER_InitCB();
 uint8_t LOGGER_DeInitCB();

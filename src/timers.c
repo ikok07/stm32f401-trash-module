@@ -13,7 +13,7 @@
  * @param Tim_Handle Timer Handle
  * @param cfg Config structure
  */
-Timers_Error_e Timers_ConfigPWM(TIM_HandleTypeDef *Tim_Handle, Timers_PWMConfig_t *cfg) {
+TIMERS_Error_e TIMERS_ConfigPWM(TIM_HandleTypeDef *Tim_Handle, TIMERS_PWMConfig_t *cfg) {
     assert_param(IS_TIM_CHANNELS(cfg->Channel));
 
     uint32_t prescaler = (cfg->Tim_Ck_Hz / 1'000'000); // Get 1Mhz clock
@@ -55,7 +55,7 @@ Timers_Error_e Timers_ConfigPWM(TIM_HandleTypeDef *Tim_Handle, Timers_PWMConfig_
  *            @arg TIM_CHANNEL_3: TIM Channel 3 selected
  *            @arg TIM_CHANNEL_4: TIM Channel 4 selected
  */
-Timers_Error_e Timers_StartPWM(TIM_HandleTypeDef *Tim_Handle, uint32_t chan) {
+TIMERS_Error_e TIMERS_StartPWM(TIM_HandleTypeDef *Tim_Handle, uint32_t chan) {
     if (HAL_TIM_PWM_Start(Tim_Handle, chan) != HAL_OK) {
         return TIMERS_ERR;
     }
@@ -74,7 +74,7 @@ Timers_Error_e Timers_StartPWM(TIM_HandleTypeDef *Tim_Handle, uint32_t chan) {
  *            @arg TIM_CHANNEL_4: TIM Channel 4 selected
  * @param duty PWM Duty Cycle (between 0 and 100)
  */
-Timers_Error_e Timers_PWMSetDutyCycle(TIM_HandleTypeDef *Tim_Handle, uint32_t chan, uint32_t duty) {
+TIMERS_Error_e TIMERS_PWMSetDutyCycle(TIM_HandleTypeDef *Tim_Handle, uint32_t chan, uint32_t duty) {
     if (duty > 100) return TIMERS_INVALID_DUTY;
 
     uint32_t period = Tim_Handle->Init.Period + 1;

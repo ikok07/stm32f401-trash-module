@@ -8,7 +8,7 @@
 #include "utils.h"
 #include "VL53L1X_api.h"
 
-Sensor_Error_e wait_for_boot(uint32_t timeout);
+VL53L1X_ErrorTypeDef wait_for_boot(uint32_t timeout);
 void config_gpio();
 
 /**
@@ -16,13 +16,13 @@ void config_gpio();
  * @param Sensor_Handle Sensor Handle
  * @param cfg Configuration struct
  */
-Sensor_Error_e Sensor_Config(Sensor_Handle_t *Sensor_Handle, Sensor_Config_t cfg) {
+VL53L1X_ErrorTypeDef VL53L1X_Config(VL54L1X_HandleTypeDef *Sensor_Handle, VL53L1X_ConfigTypeDef cfg) {
 
     assert_param(cfg.MinVal <= cfg.MaxVal);
     assert_param(cfg.MaxVal >= cfg.MinVal);
 
-    Sensor_Error_e status = SENSOR_ERROR_OK;
-    Sensor_Handle->Address = CUSTOM_SENSOR_I2C_ADDRESS;
+    VL53L1X_ErrorTypeDef status = SENSOR_ERROR_OK;
+    Sensor_Handle->Address = VL53L1X_I2C_ADDRESS;
     Sensor_Handle->Config = cfg;
 
     if (Sensor_Handle->Config.InterMeasMs < Sensor_Handle->Config.TimingBudgetMs) {
@@ -95,13 +95,13 @@ Sensor_Error_e Sensor_Config(Sensor_Handle_t *Sensor_Handle, Sensor_Config_t cfg
  * @param Sensor_Handle Sensor Handle
  * @param value Pointer where to write the sensor measurement
  */
-Sensor_Error_e Sensor_Read(Sensor_Handle_t *Sensor_Handle, uint16_t *value) {
+VL53L1X_ErrorTypeDef VL53L1X_Read(VL54L1X_HandleTypeDef *Sensor_Handle, uint16_t *value) {
     assert_param(value != NULL);
 
     uint16_t distance = -1;
-    #ifdef SENSOR_SIMULATE
-        #ifdef SENSOR_DUMMY_VALUE
-            distance = SENSOR_DUMMY_VALUE;
+    #ifdef VL53L1X_SIMULATE
+        #ifdef VL53L1X_DUMMY_VALUE
+            distance = VL53L1X_DUMMY_VALUE;
         #endif
     #else
         if (VL53L1X_GetDistance(Sensor_Handle->Address, &distance) != VL53L1X_ERROR_NONE) {
@@ -113,7 +113,7 @@ Sensor_Error_e Sensor_Read(Sensor_Handle_t *Sensor_Handle, uint16_t *value) {
     return SENSOR_ERROR_OK;
 }
 
-Sensor_Error_e wait_for_boot(uint32_t timeout) {
+VL53L1X_ErrorTypeDef wait_for_boot(uint32_t timeout) {
     uint8_t state = 0;
     uint32_t start_tick = HAL_GetTick();
 

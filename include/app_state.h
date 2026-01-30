@@ -6,8 +6,8 @@
 #define APP_STATE_H
 
 #include "stm32f4xx_hal.h"
-#include "sensor.h"
-#include "servo.h"
+#include "../lib/vl53l1x-custom-api/include/sensor.h"
+#include "../lib/servo/include/servo.h"
 
 typedef struct {
     uint32_t HLCK;
@@ -16,9 +16,9 @@ typedef struct {
     uint32_t PCLK2;
     uint32_t PCLK2_Tim;
     I2C_HandleTypeDef *pI2CHandle;
-    Sensor_Handle_t *pSensorHandle;
+    VL54L1X_HandleTypeDef *pSensorHandle;
     Servo_Handle_t *pServoHandle;
-    USART_HandleTypeDef *pErrUSARTHandle;
+    USART_HandleTypeDef *pUSARTHandle;
 } AppState_t;
 
 extern AppState_t app_state;

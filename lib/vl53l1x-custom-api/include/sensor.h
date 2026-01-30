@@ -8,13 +8,13 @@
 #include <stdint.h>
 #include "stm32f4xx_hal.h"
 
-#define CUSTOM_SENSOR_I2C_ADDRESS           (0x52)
-#define CUSTOM_SENSOR_CONN_TRIES            (1)
-#define CUSTOM_SENSOR_CONN_TIMEOUT          (3000)
+#define VL53L1X_I2C_ADDRESS                 (0x52)
+#define VL53L1X_CONN_TRIES                  (1)
+#define VL53L1X_CONN_TIMEOUT                (3000)
 
 // TEST ONLY
-// #define SENSOR_SIMULATE                 1
-// #define SENSOR_DUMMY_VALUE              200
+// #define VL53L1X_SIMULATE                 (1)
+// #define VL53L1X_DUMMY_VALUE              (200)
 
 typedef enum {
     SENSOR_ERROR_OK,
@@ -28,19 +28,19 @@ typedef enum {
     SENSOR_ERROR_TIMEOUT,
     SENSOR_ERROR_INVALID_CONFIG,
     SENSOR_ERROR_READ_FAIL
-} Sensor_Error_e;
+} VL53L1X_ErrorTypeDef;
 
 typedef enum {
     SENSOR_MODE_BELOW,
     SENSOR_MODE_BEYOND,
     SENSOR_MODE_OUT_OF_DISTANCE,
     SENSOR_MODE_WITHING_DISTANCE
-} Sensor_Mode_e;
+} VL53L1X_ModeTypeDef;
 
 typedef enum {
     SENSOR_DISTANCEMODE_SHORT = 1,
     SENSOR_DISTANCEMODE_LONG,
-} Sensor_DistanceMode_e;
+} VL53L1X_DistanceTypeDef;
 
 typedef enum {
     SENSOR_TIMINGBUDGET_15 = 15,
@@ -49,27 +49,27 @@ typedef enum {
     SENSOR_TIMINGBUDGET_100 = 100,
     SENSOR_TIMINGBUDGET_200 = 200,
     SENSOR_TIMINGBUDGET_500 = 500
-} Sensor_TimingBudget_e;
+} VL53L1X_TimingBudgetTypeDef;
 
 typedef struct {
-    Sensor_Mode_e Mode;
-    Sensor_DistanceMode_e DistanceMode;
+    VL53L1X_ModeTypeDef Mode;
+    VL53L1X_DistanceTypeDef DistanceMode;
     uint16_t MinVal;
     uint16_t MaxVal;
     uint32_t InterMeasMs;
-    Sensor_TimingBudget_e TimingBudgetMs;
+    VL53L1X_TimingBudgetTypeDef TimingBudgetMs;
     GPIO_TypeDef *InterGPIO; // Can be left NULL if no interrupt is being used
     uint16_t InterGPIOPin;
     uint8_t InterPolPositive;
     uint32_t InterNVICPriority;
-} Sensor_Config_t;
+} VL53L1X_ConfigTypeDef;
 
 typedef struct {
     uint16_t Address;
-    Sensor_Config_t Config;
-} Sensor_Handle_t;
+    VL53L1X_ConfigTypeDef Config;
+} VL54L1X_HandleTypeDef;
 
-Sensor_Error_e Sensor_Config(Sensor_Handle_t *Sensor_Handle, Sensor_Config_t cfg);
-Sensor_Error_e Sensor_Read(Sensor_Handle_t *Sensor_Handle, uint16_t *value);
+VL53L1X_ErrorTypeDef VL53L1X_Config(VL54L1X_HandleTypeDef *Sensor_Handle, VL53L1X_ConfigTypeDef cfg);
+VL53L1X_ErrorTypeDef VL53L1X_Read(VL54L1X_HandleTypeDef *Sensor_Handle, uint16_t *value);
 
 #endif //SENSOR_H

@@ -21,19 +21,19 @@ Servo_Error_e Servo_Config(Servo_Handle_t *Servo_Handle, Servo_Config_t *cfg) {
     Servo_Handle->Tim_Handle.Instance = cfg->xTIM;
     Servo_Handle->Tim_Chan = cfg->Tim_Chan;
     Servo_Handle->Max_Deg = cfg->Max_Deg;
-    Timers_PWMConfig_t PWM_Config = {
+    TIMERS_PWMConfig_t PWM_Config = {
         .Tim_Ck_Hz = cfg->Tim_Ck_Hz,
         .Period_Ms = cfg->Period_Ms,
         .Channel = cfg->Tim_Chan,
         .Duty = (cfg->Start_Deg * 100) / Servo_Handle->Max_Deg
     };
 
-    if (Timers_ConfigPWM(&Servo_Handle->Tim_Handle, &PWM_Config) != TIMERS_OK) {
+    if (TIMERS_ConfigPWM(&Servo_Handle->Tim_Handle, &PWM_Config) != TIMERS_OK) {
         return SERVO_TIM_ERR;
     };
 
     // Start the timer
-    if (Timers_StartPWM(&Servo_Handle->Tim_Handle, Servo_Handle->Tim_Chan) != TIMERS_OK) {
+    if (TIMERS_StartPWM(&Servo_Handle->Tim_Handle, Servo_Handle->Tim_Chan) != TIMERS_OK) {
         return SERVO_TIM_ERR;
     }
 
@@ -51,7 +51,7 @@ Servo_Error_e Servo_SetPosition(Servo_Handle_t *Servo_Handle, uint16_t deg) {
     }
 
     if (
-        Timers_PWMSetDutyCycle(
+        TIMERS_PWMSetDutyCycle(
             &Servo_Handle->Tim_Handle,
             Servo_Handle->Tim_Chan,
             (deg * 100) / Servo_Handle->Max_Deg

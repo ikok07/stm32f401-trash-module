@@ -50,10 +50,13 @@ set (RUNTIME_LIBRARY_SYSCALLS "--specs=nosys.specs")
 file(GLOB_RECURSE APP_SOURCES
 		"src/*.c"
 		"src/*.s"
-		"lib/CMSIS/*.c"
-		"lib/HAL/*.c"
-		"lib/VL53L1X/core/src/*.c"
-		"lib/VL53L1X/platform/src/*.c"
+		"lib/cmsis/*.c"
+		"lib/hal/*.c"
+		"lib/vl53l1x/core/src/*.c"
+		"lib/vl53l1x/platform/src/*.c"
+		"lib/vl53l1x-custom-api/src/*.c"
+		"lib/logger/src/*.c"
+		"lib/servo/src/*.c"
 		"startup_stm32f401ccux.s"
 )
 
@@ -71,11 +74,14 @@ set (PROJECT_INCLUDES
 		# LIST INCLUDE DIRECTORIES HERE
     	include
 		utils/inc
-		lib/CMSIS/Include
-		lib/CMSIS/Device/ST/STM32F4xx/Include
-		lib/HAL/Include
-		lib/VL53L1X/core/inc
-		lib/VL53L1X/platform/inc
+		lib/cmsis/Include
+		lib/cmsis/Device/ST/STM32F4xx/Include
+		lib/hal/Include
+		lib/vl53l1x/core/inc
+		lib/vl53l1x/platform/inc
+		lib/vl53l1x-custom-api/include
+		lib/logger/include
+		lib/servo/include
 )
 
 ############ MODIFY ACCORDING TO REQUIREMENTS) ########################

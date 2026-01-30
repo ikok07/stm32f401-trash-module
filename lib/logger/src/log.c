@@ -11,12 +11,32 @@
 
 static LOGGER_TypeDef hlogger;
 
+/**
+ * @brief This method should setup basic peripherals that are most likely to not fail during initialization.
+ *        This ensures that there will be some sign of error even if more complex peripherals are still not running.
+ */
+void LOGGER_InitBasic() {
+    hlogger.Initialized = 1;
+    LOGGER_InitBasicCB();
+}
+
+/**
+ * @brief This method calls ONLY the LOGGER_LogBasicCB() which should never return error.
+ *        This ensures that there will be some sign of error even if more complex peripherals are still not running.
+ */
+void LOGGER_LogBasic() {
+    LOGGER_LogBasicCB();
+}
+
+/**
+ * @brief This method initializes the logger with all the required peripherals even if they can return error.
+ * @note LOGGER_LogInitBasic() is called inside this method
+ */
 LOGGER_ErrorTypeDef LOGGER_Init() {
-    hlogger = (LOGGER_TypeDef) {
-        .Initialized = 1,
-        .Enabled = 0,
-        .FatalOccurred = 0
-    };
+    hlogger.Initialized = 1;
+    hlogger.Enabled = 0;
+    hlogger.FatalOccurred = 0;
+
     if (LOGGER_InitCB() != 0) return LOGGER_ERROR_IMPLEMENTATION;
     return LOGGER_ERROR_OK;
 }
@@ -35,6 +55,7 @@ LOGGER_ErrorTypeDef LOGGER_ReInit() {
 
 LOGGER_ErrorTypeDef LOGGER_Log(LOGGER_LevelTypeDef level, char *msg) {
     if (!hlogger.Initialized) return LOGGER_ERROR_UNINITIALIZED;
+    if (!hlogger.Enabled) return LOGGER_ERROR_DISABLED;
 
     if (hlogger.ActiveLevel > level) {
         // Logger's active level is higher than the provided one.

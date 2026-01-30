@@ -10,6 +10,7 @@
 #include "sensor.h"
 #include "servo.h"
 #include "log.h"
+#include "usart.h"
 
 #define ERR_LED_GPIO            GPIOC
 #define ERR_LED_PIN             GPIO_PIN_14
@@ -27,17 +28,22 @@ int main(void) {
         while (1);
     }
 
-    // Configure and enable logger
-    LOGGER_Init();
+    // Initialize basic logger and enable it
+    LOGGER_InitBasic();
     LOGGER_Enable();
 
     // Configure the Clocks
     if (CLK_Config() != HAL_OK) {
-        LOGGER_Log(LOGGER_LEVEL_FATAL, "Failed to configure MCU's clocks!");
+        LOGGER_LogBasic();
     };
 
-    // Reinit logger for new clocks
-    LOGGER_ReInit();
+    // Configure USART
+    if (USART_Config() != HAL_OK) {
+        LOGGER_LogBasic();
+    };
+
+    // Initialize the full logger and enable it
+    LOGGER_Init();
     LOGGER_Enable();
 
     // Configure I2C
@@ -52,7 +58,7 @@ int main(void) {
         .Tim_Ck_Hz = app_state.PCLK1,
         .Period_Ms = 20,
         .Max_Deg = 180,
-        .Start_Deg = 0
+        .Start_Deg = 200
     };
 
     if (
@@ -67,7 +73,7 @@ int main(void) {
     // Check if device was in standby mode
     if (PWR_CheckDeviceWasSTBY()) {
         uint16_t value = -1;
-        if (Sensor_Read(app_state.pSensorHandle, &value) != SENSOR_ERROR_OK) {
+        if (VL53L1X_Read(app_state.pSensorHandle, &value) != SENSOR_ERROR_OK) {
             LOGGER_Log(LOGGER_LEVEL_ERROR, "Failed to read sensor data!");
         };
         Event_NewSensorData(value);
@@ -117,7 +123,7 @@ void Event_NewSensorData(uint16_t value) {
     }
 }
 
-uint8_t LOGGER_InitCB() {
+void LOGGER_InitBasicCB() {
     // Enable clock access
     __HAL_RCC_GPIOC_CLK_ENABLE();
 
@@ -129,33 +135,22 @@ uint8_t LOGGER_InitCB() {
         .Speed = GPIO_SPEED_LOW
     };
     HAL_GPIO_Init(ERR_LED_GPIO, &GPIO_Config);
+}
 
-    // Configure USART
-    app_state.pErrUSARTHandle->Instance = USART1;
-    app_state.pErrUSARTHandle->Init = (USART_InitTypeDef) {
-        .Mode = USART_MODE_TX,
-        .BaudRate = 9600,
-        .CLKPhase = USART_PHASE_1EDGE,
-        .CLKPolarity = USART_POLARITY_LOW,
-        .Parity = USART_PARITY_NONE,
-        .CLKLastBit = USART_LASTBIT_DISABLE,
-        .StopBits = USART_STOPBITS_1,
-        .WordLength = USART_WORDLENGTH_8B
-    };
-    HAL_StatusTypeDef status = HAL_USART_Init(app_state.pErrUSARTHandle);
-
-    return status;
+void LOGGER_LogBasicCB() {
+    HAL_GPIO_WritePin(ERR_LED_GPIO, ERR_LED_PIN, ENABLE);
+    HAL_Delay(2000);
+    HAL_GPIO_WritePin(ERR_LED_GPIO, ERR_LED_PIN, DISABLE);
 }
 
 uint8_t LOGGER_DeInitCB() {
     HAL_GPIO_DeInit(ERR_LED_GPIO, ERR_LED_PIN);
-    HAL_StatusTypeDef status = HAL_USART_DeInit(app_state.pErrUSARTHandle);
-    return status;
+    return 0;
 }
 
 uint8_t LOGGER_LogCB(LOGGER_EventTypeDef *event) {
     HAL_StatusTypeDef status = HAL_USART_Transmit(
-        app_state.pErrUSARTHandle,
+        app_state.pUSARTHandle,
         (uint8_t*)event->msg,
         strlen(event->msg) + 1,
         ERR_USART_TX_TIMEOUT
@@ -169,7 +164,7 @@ uint8_t LOGGER_FatalCB(LOGGER_EventTypeDef *event) {
 
     // Ignore error
     HAL_USART_Transmit(
-        app_state.pErrUSARTHandle,
+        app_state.pUSARTHandle,
         (uint8_t*)event->msg,
         strlen(event->msg) + 1,
         ERR_USART_TX_TIMEOUT
@@ -185,7 +180,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t Pin) {
     if (Pin == GPIO_PIN_0) {
         // Sensor interrupt while device NOT in standby mode
         uint16_t value = -1;
-        if (Sensor_Read(app_state.pSensorHandle, &value) != SENSOR_ERROR_OK) {
+        if (VL53L1X_Read(app_state.pSensorHandle, &value) != SENSOR_ERROR_OK) {
             LOGGER_Log(LOGGER_LEVEL_ERROR, "Failed to read sensor data!");
         };
         Event_NewSensorData(value);
@@ -207,29 +202,5 @@ void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *Tim_Handle) {
             .Speed = GPIO_SPEED_LOW
         };
         HAL_GPIO_Init(GPIOB, &GPIO_Config);
-    }
-}
-
-void HAL_USART_MspInit(USART_HandleTypeDef *husart) {
-    GPIO_InitTypeDef GPIO_Config = {
-        .Mode = GPIO_MODE_AF_PP,
-        .Pull = GPIO_PULLUP,
-        .Speed = GPIO_SPEED_LOW
-    };
-
-    if (husart->Instance == USART1) {
-        __HAL_RCC_GPIOA_CLK_ENABLE();
-        __HAL_RCC_USART1_CLK_ENABLE();
-
-        GPIO_Config.Alternate = GPIO_AF7_USART1;
-        GPIO_Config.Pin = GPIO_PIN_9;
-
-        HAL_GPIO_Init(GPIOA, &GPIO_Config);
-    }
-}
-
-void HAL_USART_MspDeInit(USART_HandleTypeDef *husart) {
-    if (husart->Instance == USART1) {
-        HAL_GPIO_DeInit(GPIOA, GPIO_PIN_9);
     }
 }

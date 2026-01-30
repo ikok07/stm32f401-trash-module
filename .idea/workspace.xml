@@ -29,16 +29,150 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4712c172-15e2-4a4c-97b2-d6be4fe3a76d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/diagrams.excalidraw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/log.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/log.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/include/usart.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/usart.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/bill_of_materials.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/bill_of_materials.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/diagrams.excalidraw" beforeDir="false" afterPath="$PROJECT_DIR$/docs/diagrams.excalidraw" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/app_state.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/app_state.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/error.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/log.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/logger/include/log.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/sensor.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/vl53l1x-custom-api/include/sensor.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/servo.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/servo/include/servo.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/timers.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/timers.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xc.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f401xc.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f401xe.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f405xx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f407xx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f410cx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f410cx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f410rx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f410rx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f410tx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f410tx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f411xe.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f411xe.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f412cx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f412cx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f412rx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f412rx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f412vx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f412vx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f412zx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f412zx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f413xx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f413xx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f415xx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f415xx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f417xx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f417xx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f423xx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f423xx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f427xx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f427xx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f429xx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f429xx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f437xx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f437xx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f439xx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f439xx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f446xx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f469xx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f469xx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f479xx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f479xx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/stm32f4xx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Include/system_stm32f4xx.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Device/ST/STM32F4xx/Src/system_stm32f4xx.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Device/ST/STM32F4xx/Src/system_stm32f4xx.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/a-profile/cmsis_armclang_a.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/a-profile/cmsis_armclang_a.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/a-profile/cmsis_clang_a.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/a-profile/cmsis_clang_a.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/a-profile/cmsis_cp15.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/a-profile/cmsis_cp15.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/a-profile/cmsis_gcc_a.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/a-profile/cmsis_gcc_a.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/a-profile/cmsis_iccarm_a.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/a-profile/cmsis_iccarm_a.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/a-profile/irq_ctrl.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/a-profile/irq_ctrl.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/cmsis_armclang.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/cmsis_armclang.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/cmsis_clang.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/cmsis_clang.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/cmsis_compiler.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/cmsis_compiler.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/cmsis_gcc.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/cmsis_gcc.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/cmsis_version.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/cmsis_version.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/core_ca.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/core_ca.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/core_cm0.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/core_cm0.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/core_cm0plus.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/core_cm0plus.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/core_cm1.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/core_cm1.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/core_cm23.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/core_cm23.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/core_cm3.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/core_cm3.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/core_cm33.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/core_cm33.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/core_cm35p.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/core_cm35p.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/core_cm4.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/core_cm4.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/core_cm52.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/core_cm52.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/core_cm55.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/core_cm55.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/core_cm7.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/core_cm7.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/core_cm85.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/core_cm85.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/core_sc000.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/core_sc000.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/core_sc300.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/core_sc300.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/core_starmc1.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/core_starmc1.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/m-profile/armv7m_cachel1.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/m-profile/armv7m_cachel1.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/m-profile/armv7m_mpu.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/m-profile/armv7m_mpu.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/m-profile/armv81m_pac.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/m-profile/armv81m_pac.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/m-profile/armv8m_mpu.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/m-profile/armv8m_mpu.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/m-profile/armv8m_pmu.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/m-profile/armv8m_pmu.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/m-profile/cmsis_armclang_m.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/m-profile/cmsis_armclang_m.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/m-profile/cmsis_clang_m.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/m-profile/cmsis_clang_m.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/m-profile/cmsis_gcc_m.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/m-profile/cmsis_gcc_m.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/m-profile/cmsis_iccarm_m.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/m-profile/cmsis_iccarm_m.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/m-profile/cmsis_tiarmclang_m.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/m-profile/cmsis_tiarmclang_m.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/r-profile/cmsis_armclang_r.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/r-profile/cmsis_armclang_r.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/r-profile/cmsis_clang_r.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/r-profile/cmsis_clang_r.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/r-profile/cmsis_gcc_r.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/r-profile/cmsis_gcc_r.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CMSIS/Include/tz_context.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cmsis/Include/tz_context.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/Legacy/stm32_hal_legacy.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/Legacy/stm32_hal_legacy.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/Legacy/stm32f4xx_hal_can_legacy.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/Legacy/stm32f4xx_hal_can_legacy.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/Legacy/stm32f4xx_hal_eth_legacy.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/Legacy/stm32f4xx_hal_eth_legacy.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32_assert.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32_assert.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_adc.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_adc.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_adc_ex.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_adc_ex.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_conf.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_cortex.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_cortex.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_def.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_def.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_dma.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_dma.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_dma_ex.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_dma_ex.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_exti.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_exti.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_flash.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_flash.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_flash_ex.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_flash_ex.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_flash_ramfunc.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_flash_ramfunc.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_gpio.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_gpio.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_gpio_ex.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_gpio_ex.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_i2c.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_i2c.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_i2c_ex.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_i2c_ex.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_pwr.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_pwr.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_pwr_ex.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_pwr_ex.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_rcc.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_rcc.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_rcc_ex.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_rcc_ex.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_rtc.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_rtc.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_rtc_ex.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_rtc_ex.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_tim.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_tim.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_tim_ex.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_tim_ex.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_hal_usart.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_hal_usart.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Include/stm32f4xx_ll_adc.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Include/stm32f4xx_ll_adc.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_hal.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_hal.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_hal_adc.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_hal_adc.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_hal_adc_ex.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_hal_adc_ex.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_hal_cortex.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_hal_cortex.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_hal_dma.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_hal_dma.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_hal_exti.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_hal_exti.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_hal_flash.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_hal_flash.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_hal_flash_ex.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_hal_flash_ex.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_hal_flash_ramfunc.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_hal_flash_ramfunc.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_hal_gpio.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_hal_gpio.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_hal_i2c.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_hal_i2c.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_hal_i2c_ex.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_hal_i2c_ex.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_hal_pwr.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_hal_pwr.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_hal_pwr_ex.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_hal_pwr_ex.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_hal_rcc.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_hal_rcc.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_hal_rcc_ex.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_hal_rcc_ex.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_hal_rtc.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_hal_rtc.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_hal_rtc_ex.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_hal_rtc_ex.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_hal_tim.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_hal_tim.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_hal_tim_ex.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_hal_tim_ex.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_hal_usart.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_hal_usart.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/HAL/Src/stm32f4xx_ll_adc.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/hal/Src/stm32f4xx_ll_adc.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/VL53L1X/core/inc/VL53L1X_api.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/vl53l1x/core/inc/VL53L1X_api.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/VL53L1X/core/inc/VL53L1X_calibration.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/vl53l1x/core/inc/VL53L1X_calibration.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/VL53L1X/core/src/VL53L1X_api.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/vl53l1x/core/src/VL53L1X_api.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/VL53L1X/core/src/VL53L1X_calibration.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/vl53l1x/core/src/VL53L1X_calibration.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/VL53L1X/platform/inc/vl53l1_platform.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/vl53l1x/platform/inc/vl53l1_platform.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/VL53L1X/platform/inc/vl53l1_types.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/vl53l1x/platform/inc/vl53l1_types.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/VL53L1X/platform/src/vl53l1_platform.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/vl53l1x/platform/src/vl53l1_platform.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app_state.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/app_state.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/assert.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/assert.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/error.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/log.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/logger/src/log.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sensor.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/vl53l1x-custom-api/src/sensor.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/servo.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/servo/src/servo.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/timers.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/timers.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1342,6 +1476,12 @@
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectApplicationVersion">
     <option name="ide" value="CLion" />
@@ -1390,11 +1530,11 @@
       <recent name="$PROJECT_DIR$/lib/VL53L1X/core" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/docs" />
-      <recent name="$PROJECT_DIR$/include" />
-      <recent name="$PROJECT_DIR$/lib/VL53L1X/platform/src" />
-      <recent name="$PROJECT_DIR$/lib/VL53L1X/core/src" />
-      <recent name="$PROJECT_DIR$/lib/VL53L1X/platform/inc" />
+      <recent name="$PROJECT_DIR$/lib/servo/include" />
+      <recent name="$PROJECT_DIR$/lib/servo/src" />
+      <recent name="$PROJECT_DIR$/lib/vl53l1x-custom-api/include" />
+      <recent name="$PROJECT_DIR$/lib/vl53l1x-custom-api/src" />
+      <recent name="$PROJECT_DIR$/lib/logger/src" />
     </key>
   </component>
   <component name="RunManager" selected="OpenOCD Download &amp; Run.stm32f401-trash-module">
@@ -1442,7 +1582,7 @@
       <workItem from="1769330586289" duration="78000" />
       <workItem from="1769330680141" duration="7018000" />
       <workItem from="1769424592122" duration="8895000" />
-      <workItem from="1769702190005" duration="10926000" />
+      <workItem from="1769702190005" duration="15686000" />
     </task>
     <servers />
   </component>

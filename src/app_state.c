@@ -5,7 +5,7 @@
 #include "app_state.h"
 
 I2C_HandleTypeDef I2CHandle = {};
-Sensor_Handle_t SensorHandle = {};
+VL54L1X_HandleTypeDef SensorHandle = {};
 Servo_Handle_t ServoHandle = {};
 USART_HandleTypeDef ErrUSARTHandle = {};
 
@@ -18,5 +18,5 @@ AppState_t app_state = {
     .pI2CHandle = &I2CHandle,
     .pSensorHandle = &SensorHandle,
     .pServoHandle = &ServoHandle,
-    .pErrUSARTHandle = &ErrUSARTHandle
+    .pUSARTHandle = &ErrUSARTHandle
 };
