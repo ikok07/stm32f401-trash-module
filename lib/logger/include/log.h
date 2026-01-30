@@ -19,7 +19,7 @@ typedef enum {
 
 typedef enum {
     LOGGER_ERROR_OK,
-    LOGGER_ERROR_IMPLEMENTATION,    // An error occurred in the system-specific logger implementation
+    LOGGER_ERROR_IMPLEMENTATION,    // An error occurred in the system-specific implementation
     LOGGER_ERROR_UNINITIALIZED,
     LOGGER_ERROR_MESSAGE_LEN,        // The passed message is longer than the allowed maximum (LOGGER_MSG_MAX_LEN)
     LOGGER_ERROR_DISABLED
@@ -51,7 +51,7 @@ LOGGER_ErrorTypeDef LOGGER_Log(LOGGER_LevelTypeDef level, char *msg);
 
 LOGGER_ErrorTypeDef LOGGER_Enable();
 LOGGER_ErrorTypeDef LOGGER_Disable();
-LOGGER_ErrorTypeDef LOGGER_SetLevel(LOGGER_LevelTypeDef level);
+LOGGER_ErrorTypeDef LOGGER_SetLevel(LOGGER_LevelTypeDef Level);
 
 /* ------ Callbacks ------ */
 
@@ -60,12 +60,12 @@ void LOGGER_LogBasicCB();
 
 uint8_t LOGGER_InitCB();
 uint8_t LOGGER_DeInitCB();
-uint8_t LOGGER_LogCB(LOGGER_EventTypeDef *event);
-uint8_t LOGGER_FatalCB(LOGGER_EventTypeDef *event);
-uint8_t LOGGER_FormatCB(LOGGER_EventTypeDef *event, char *buffer, uint16_t len);
+uint8_t LOGGER_LogCB(LOGGER_EventTypeDef *Event);
+uint8_t LOGGER_FatalCB(LOGGER_EventTypeDef *Event);
+uint8_t LOGGER_FormatCB(LOGGER_EventTypeDef *Event, char *Buffer, uint16_t Len);
 
 /* ------ Utils ------ */
 
-char *LOGGER_GetLevelLabel(LOGGER_LevelTypeDef level);
+char *LOGGER_GetLevelLabel(LOGGER_LevelTypeDef Level);
 
 #endif //LOG_H

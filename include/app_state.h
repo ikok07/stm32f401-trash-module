@@ -17,8 +17,9 @@ typedef struct {
     uint32_t PCLK2_Tim;
     I2C_HandleTypeDef *pI2CHandle;
     VL54L1X_HandleTypeDef *pSensorHandle;
-    Servo_Handle_t *pServoHandle;
-    USART_HandleTypeDef *pUSARTHandle;
+    Servo_HandleTypeDef *pServoHandle;
+    UART_HandleTypeDef *pUARTHandle;
+    DMA_HandleTypeDef *pDMAUART1RXHandle;
 } AppState_t;
 
 extern AppState_t app_state;

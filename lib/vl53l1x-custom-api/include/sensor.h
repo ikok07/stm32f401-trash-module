@@ -69,7 +69,7 @@ typedef struct {
     VL53L1X_ConfigTypeDef Config;
 } VL54L1X_HandleTypeDef;
 
-VL53L1X_ErrorTypeDef VL53L1X_Config(VL54L1X_HandleTypeDef *Sensor_Handle, VL53L1X_ConfigTypeDef cfg);
-VL53L1X_ErrorTypeDef VL53L1X_Read(VL54L1X_HandleTypeDef *Sensor_Handle, uint16_t *value);
+VL53L1X_ErrorTypeDef VL53L1X_Config(VL54L1X_HandleTypeDef *hvl53l1x, VL53L1X_ConfigTypeDef Cfg);
+VL53L1X_ErrorTypeDef VL53L1X_Read(VL54L1X_HandleTypeDef *hvl53l1x, uint16_t *Value);
 
 #endif //SENSOR_H

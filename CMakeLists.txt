@@ -57,6 +57,7 @@ file(GLOB_RECURSE APP_SOURCES
 		"lib/vl53l1x-custom-api/src/*.c"
 		"lib/logger/src/*.c"
 		"lib/servo/src/*.c"
+		"lib/command-handler/src/*.c"
 		"startup_stm32f401ccux.s"
 )
 
@@ -82,6 +83,7 @@ set (PROJECT_INCLUDES
 		lib/vl53l1x-custom-api/include
 		lib/logger/include
 		lib/servo/include
+		lib/command-handler/include
 )
 
 ############ MODIFY ACCORDING TO REQUIREMENTS) ########################

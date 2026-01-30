@@ -96,11 +96,11 @@ LOGGER_ErrorTypeDef LOGGER_Disable() {
 
 /**
  * @brief Configures the level of the messages which the logger will output
- * @param level Logger level
+ * @param Level Logger level
  */
-LOGGER_ErrorTypeDef LOGGER_SetLevel(LOGGER_LevelTypeDef level) {
+LOGGER_ErrorTypeDef LOGGER_SetLevel(LOGGER_LevelTypeDef Level) {
     if (!hlogger.Initialized) return LOGGER_ERROR_UNINITIALIZED;
-    hlogger.ActiveLevel = level;
+    hlogger.ActiveLevel = Level;
     return LOGGER_ERROR_OK;
 }
 
@@ -112,24 +112,24 @@ __weak uint8_t LOGGER_InitCB() {return 0;}
 
 /**
  * @brief Use the configured peripherals to output log message
- * @param event Logger event
+ * @param Event Logger event
  * @return 0 -> OK\n 1 -> ERROR
  */
-__weak uint8_t LOGGER_LogCB(LOGGER_EventTypeDef *event) {return 0;}
+__weak uint8_t LOGGER_LogCB(LOGGER_EventTypeDef *Event) {return 0;}
 
 /**
  * @brief Handle cases where the error is fatal. This method is called when LOGGER_Log() is called with fatal log.
- * @param event Logger event
+ * @param Event Logger event
  * @return 0 -> OK\n 1 -> ERROR
  */
-__weak uint8_t LOGGER_FatalCB(LOGGER_EventTypeDef *event) {return 0;}
+__weak uint8_t LOGGER_FatalCB(LOGGER_EventTypeDef *Event) {return 0;}
 
-__weak uint8_t LOGGER_FormatCB(LOGGER_EventTypeDef *event, char *buffer, uint16_t len) {
-    return snprintf(buffer, len, "%s - %s", LOGGER_GetLevelLabel(event->Level), event->msg) >= len;
+__weak uint8_t LOGGER_FormatCB(LOGGER_EventTypeDef *Event, char *Buffer, uint16_t Len) {
+    return snprintf(Buffer, Len, "%s - %s\n", LOGGER_GetLevelLabel(Event->Level), Event->msg) >= Len;
 }
 
-char *LOGGER_GetLevelLabel(LOGGER_LevelTypeDef level) {
-    switch (level) {
+char *LOGGER_GetLevelLabel(LOGGER_LevelTypeDef Level) {
+    switch (Level) {
         case LOGGER_LEVEL_DEBUG: return "DEBUG";
         case LOGGER_LEVEL_INFO: return "INFO";
         case LOGGER_LEVEL_WARNING: return "WARNING";

@@ -13,19 +13,19 @@ void config_gpio();
 
 /**
  * @brief Configures the sensor using the provided configuration structure
- * @param Sensor_Handle Sensor Handle
- * @param cfg Configuration struct
+ * @param hvl53l1x Sensor Handle
+ * @param Cfg Configuration struct
  */
-VL53L1X_ErrorTypeDef VL53L1X_Config(VL54L1X_HandleTypeDef *Sensor_Handle, VL53L1X_ConfigTypeDef cfg) {
+VL53L1X_ErrorTypeDef VL53L1X_Config(VL54L1X_HandleTypeDef *hvl53l1x, VL53L1X_ConfigTypeDef Cfg) {
 
-    assert_param(cfg.MinVal <= cfg.MaxVal);
-    assert_param(cfg.MaxVal >= cfg.MinVal);
+    assert_param(Cfg.MinVal <= Cfg.MaxVal);
+    assert_param(Cfg.MaxVal >= Cfg.MinVal);
 
     VL53L1X_ErrorTypeDef status = SENSOR_ERROR_OK;
-    Sensor_Handle->Address = VL53L1X_I2C_ADDRESS;
-    Sensor_Handle->Config = cfg;
+    hvl53l1x->Address = VL53L1X_I2C_ADDRESS;
+    hvl53l1x->Config = Cfg;
 
-    if (Sensor_Handle->Config.InterMeasMs < Sensor_Handle->Config.TimingBudgetMs) {
+    if (hvl53l1x->Config.InterMeasMs < hvl53l1x->Config.TimingBudgetMs) {
         return SENSOR_ERROR_INVALID_CONFIG;
     }
 
@@ -33,16 +33,16 @@ VL53L1X_ErrorTypeDef VL53L1X_Config(VL54L1X_HandleTypeDef *Sensor_Handle, VL53L1
         return status;
     }
 
-    if (VL53L1X_SensorInit(Sensor_Handle->Address) != VL53L1X_ERROR_NONE) {
+    if (VL53L1X_SensorInit(hvl53l1x->Address) != VL53L1X_ERROR_NONE) {
         return SENSOR_ERROR_INIT_FAIL;
     }
 
     if (
         VL53L1X_SetDistanceThreshold(
-            Sensor_Handle->Address,
-            Sensor_Handle->Config.MinVal,
-            Sensor_Handle->Config.MaxVal,
-            Sensor_Handle->Config.Mode,
+            hvl53l1x->Address,
+            hvl53l1x->Config.MinVal,
+            hvl53l1x->Config.MaxVal,
+            hvl53l1x->Config.Mode,
             0
         ) != VL53L1X_ERROR_NONE
     ) {
@@ -51,8 +51,8 @@ VL53L1X_ErrorTypeDef VL53L1X_Config(VL54L1X_HandleTypeDef *Sensor_Handle, VL53L1
 
     if (
         VL53L1X_SetDistanceMode(
-            Sensor_Handle->Address,
-            Sensor_Handle->Config.DistanceMode
+            hvl53l1x->Address,
+            hvl53l1x->Config.DistanceMode
         ) != VL53L1X_ERROR_NONE
     ) {
         return SENSOR_ERROR_DIST_FAIL;
@@ -60,8 +60,8 @@ VL53L1X_ErrorTypeDef VL53L1X_Config(VL54L1X_HandleTypeDef *Sensor_Handle, VL53L1
 
     if (
         VL53L1X_SetInterMeasurementInMs(
-            Sensor_Handle->Address,
-            Sensor_Handle->Config.InterMeasMs
+            hvl53l1x->Address,
+            hvl53l1x->Config.InterMeasMs
         ) != VL53L1X_ERROR_NONE
     ) {
         return SENSOR_ERROR_INTERMEAS_FAIL;
@@ -69,8 +69,8 @@ VL53L1X_ErrorTypeDef VL53L1X_Config(VL54L1X_HandleTypeDef *Sensor_Handle, VL53L1
 
     if (
         VL53L1X_SetTimingBudgetInMs(
-            Sensor_Handle->Address,
-            Sensor_Handle->Config.TimingBudgetMs
+            hvl53l1x->Address,
+            hvl53l1x->Config.TimingBudgetMs
         ) != VL53L1X_ERROR_NONE
     ) {
         return SENSOR_ERROR_TB_FAIL;
@@ -78,25 +78,25 @@ VL53L1X_ErrorTypeDef VL53L1X_Config(VL54L1X_HandleTypeDef *Sensor_Handle, VL53L1
 
     if (
         VL53L1X_SetInterruptPolarity(
-            Sensor_Handle->Address,
-            Sensor_Handle->Config.InterPolPositive
+            hvl53l1x->Address,
+            hvl53l1x->Config.InterPolPositive
         ) != VL53L1X_ERROR_NONE
     ) {
         return SENSOR_ERROR_INTER_FAIL;
     }
 
-    if (Sensor_Handle->Config.InterGPIO) config_gpio();
+    if (hvl53l1x->Config.InterGPIO) config_gpio();
 
     return status;
 }
 
 /**
  * @brief Reads the current sensor measurement
- * @param Sensor_Handle Sensor Handle
- * @param value Pointer where to write the sensor measurement
+ * @param hvl53l1x Sensor Handle
+ * @param Value Pointer where to write the sensor measurement
  */
-VL53L1X_ErrorTypeDef VL53L1X_Read(VL54L1X_HandleTypeDef *Sensor_Handle, uint16_t *value) {
-    assert_param(value != NULL);
+VL53L1X_ErrorTypeDef VL53L1X_Read(VL54L1X_HandleTypeDef *hvl53l1x, uint16_t *Value) {
+    assert_param(Value != NULL);
 
     uint16_t distance = -1;
     #ifdef VL53L1X_SIMULATE
@@ -104,12 +104,12 @@ VL53L1X_ErrorTypeDef VL53L1X_Read(VL54L1X_HandleTypeDef *Sensor_Handle, uint16_t
             distance = VL53L1X_DUMMY_VALUE;
         #endif
     #else
-        if (VL53L1X_GetDistance(Sensor_Handle->Address, &distance) != VL53L1X_ERROR_NONE) {
+        if (VL53L1X_GetDistance(hvl53l1x->Address, &distance) != VL53L1X_ERROR_NONE) {
             return SENSOR_ERROR_READ_FAIL;
         }
     #endif
 
-    if (value) *value = distance;
+    if (Value) *Value = distance;
     return SENSOR_ERROR_OK;
 }
 

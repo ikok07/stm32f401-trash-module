@@ -6,8 +6,9 @@
 
 I2C_HandleTypeDef I2CHandle = {};
 VL54L1X_HandleTypeDef SensorHandle = {};
-Servo_Handle_t ServoHandle = {};
-USART_HandleTypeDef ErrUSARTHandle = {};
+Servo_HandleTypeDef ServoHandle = {};
+UART_HandleTypeDef ErrUSARTHandle = {};
+DMA_HandleTypeDef pDMAUSART1RXHandle = {};
 
 AppState_t app_state = {
     .HLCK = 0,
@@ -18,5 +19,6 @@ AppState_t app_state = {
     .pI2CHandle = &I2CHandle,
     .pSensorHandle = &SensorHandle,
     .pServoHandle = &ServoHandle,
-    .pUSARTHandle = &ErrUSARTHandle
+    .pUARTHandle = &ErrUSARTHandle,
+    .pDMAUART1RXHandle = &pDMAUSART1RXHandle
 };

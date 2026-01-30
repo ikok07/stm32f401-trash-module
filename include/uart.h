@@ -7,7 +7,7 @@
 
 #include "stm32f4xx_hal.h"
 
-HAL_StatusTypeDef USART_Config();
-HAL_StatusTypeDef USART_DeInit();
+HAL_StatusTypeDef UART1_Config();
+HAL_StatusTypeDef UART1_DeInit();
 
 #endif //USART_H
