@@ -58,6 +58,7 @@ file(GLOB_RECURSE APP_SOURCES
 		"lib/logger/src/*.c"
 		"lib/servo/src/*.c"
 		"lib/command-handler/src/*.c"
+		"lib/tests-handler/src/*.c"
 		"startup_stm32f401ccux.s"
 )
 
@@ -84,6 +85,7 @@ set (PROJECT_INCLUDES
 		lib/logger/include
 		lib/servo/include
 		lib/command-handler/include
+		lib/tests-handler/include
 )
 
 ############ MODIFY ACCORDING TO REQUIREMENTS) ########################

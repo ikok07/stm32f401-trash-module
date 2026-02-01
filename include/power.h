@@ -9,5 +9,6 @@
 
 uint8_t PWR_CheckDeviceWasSTBY();
 void PWR_EnterStandbyMode();
+void PWR_EnterSleepMode();
 
 #endif //POWER_H

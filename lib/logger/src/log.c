@@ -37,6 +37,8 @@ LOGGER_ErrorTypeDef LOGGER_Init() {
     hlogger.Enabled = 0;
     hlogger.FatalOccurred = 0;
 
+    LOGGER_InitBasic();
+
     if (LOGGER_InitCB() != 0) return LOGGER_ERROR_IMPLEMENTATION;
     return LOGGER_ERROR_OK;
 }

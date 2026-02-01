@@ -6,7 +6,7 @@
 
 I2C_HandleTypeDef I2CHandle = {};
 VL54L1X_HandleTypeDef SensorHandle = {};
-Servo_HandleTypeDef ServoHandle = {};
+SERVO_HandleTypeDef ServoHandle = {};
 UART_HandleTypeDef ErrUSARTHandle = {};
 DMA_HandleTypeDef pDMAUSART1RXHandle = {};
 

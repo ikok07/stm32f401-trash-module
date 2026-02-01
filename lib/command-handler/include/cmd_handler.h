@@ -15,10 +15,12 @@ typedef enum {
     CHANDLER_ERROR_IMPLEMENTATION    // An error occurred in the system-specific implementation
 } CHANDLER_ErrorTypeDef;
 
-typedef char*(*CommandMethod)(void);
+typedef void(*CommandMethod)(char *ResponseBuffer, uint16_t Len);
 typedef struct {
     char *id;
     CommandMethod method;
+    char *Buf;
+    uint16_t BufLen;
     char *help;
 } CHANDLER_CommandTypeDef;
 
@@ -41,6 +43,6 @@ void CHANDLER_Disable();
 
 /* ------ Callbacks ------ */
 
-uint8_t CHANDLER_ResponseCB(char *response);
+uint8_t CHANDLER_ResponseCB(CHANDLER_CommandTypeDef *Cmd);
 
 #endif //CMD_HANDLER_H

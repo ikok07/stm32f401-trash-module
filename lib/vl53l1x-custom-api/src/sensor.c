@@ -21,20 +21,20 @@ VL53L1X_ErrorTypeDef VL53L1X_Config(VL54L1X_HandleTypeDef *hvl53l1x, VL53L1X_Con
     assert_param(Cfg.MinVal <= Cfg.MaxVal);
     assert_param(Cfg.MaxVal >= Cfg.MinVal);
 
-    VL53L1X_ErrorTypeDef status = SENSOR_ERROR_OK;
+    VL53L1X_ErrorTypeDef status = VL53L1X_ERROR_OK;
     hvl53l1x->Address = VL53L1X_I2C_ADDRESS;
     hvl53l1x->Config = Cfg;
 
     if (hvl53l1x->Config.InterMeasMs < hvl53l1x->Config.TimingBudgetMs) {
-        return SENSOR_ERROR_INVALID_CONFIG;
+        return VL53L1X_ERROR_INVALID_CONFIG;
     }
 
-    if ((status = wait_for_boot(1000)) != SENSOR_ERROR_OK) {
+    if ((status = wait_for_boot(1000)) != VL53L1X_ERROR_OK) {
         return status;
     }
 
     if (VL53L1X_SensorInit(hvl53l1x->Address) != VL53L1X_ERROR_NONE) {
-        return SENSOR_ERROR_INIT_FAIL;
+        return VL53L1X_ERROR_INIT_FAIL;
     }
 
     if (
@@ -46,7 +46,7 @@ VL53L1X_ErrorTypeDef VL53L1X_Config(VL54L1X_HandleTypeDef *hvl53l1x, VL53L1X_Con
             0
         ) != VL53L1X_ERROR_NONE
     ) {
-        return SENSOR_ERROR_THRES_FAIL;
+        return VL53L1X_ERROR_THRES_FAIL;
     }
 
     if (
@@ -55,7 +55,7 @@ VL53L1X_ErrorTypeDef VL53L1X_Config(VL54L1X_HandleTypeDef *hvl53l1x, VL53L1X_Con
             hvl53l1x->Config.DistanceMode
         ) != VL53L1X_ERROR_NONE
     ) {
-        return SENSOR_ERROR_DIST_FAIL;
+        return VL53L1X_ERROR_DIST_FAIL;
     }
 
     if (
@@ -64,7 +64,7 @@ VL53L1X_ErrorTypeDef VL53L1X_Config(VL54L1X_HandleTypeDef *hvl53l1x, VL53L1X_Con
             hvl53l1x->Config.InterMeasMs
         ) != VL53L1X_ERROR_NONE
     ) {
-        return SENSOR_ERROR_INTERMEAS_FAIL;
+        return VL53L1X_ERROR_INTERMEAS_FAIL;
     }
 
     if (
@@ -73,7 +73,7 @@ VL53L1X_ErrorTypeDef VL53L1X_Config(VL54L1X_HandleTypeDef *hvl53l1x, VL53L1X_Con
             hvl53l1x->Config.TimingBudgetMs
         ) != VL53L1X_ERROR_NONE
     ) {
-        return SENSOR_ERROR_TB_FAIL;
+        return VL53L1X_ERROR_TB_FAIL;
     }
 
     if (
@@ -82,7 +82,7 @@ VL53L1X_ErrorTypeDef VL53L1X_Config(VL54L1X_HandleTypeDef *hvl53l1x, VL53L1X_Con
             hvl53l1x->Config.InterPolPositive
         ) != VL53L1X_ERROR_NONE
     ) {
-        return SENSOR_ERROR_INTER_FAIL;
+        return VL53L1X_ERROR_INTER_FAIL;
     }
 
     if (hvl53l1x->Config.InterGPIO) config_gpio();
@@ -105,12 +105,12 @@ VL53L1X_ErrorTypeDef VL53L1X_Read(VL54L1X_HandleTypeDef *hvl53l1x, uint16_t *Val
         #endif
     #else
         if (VL53L1X_GetDistance(hvl53l1x->Address, &distance) != VL53L1X_ERROR_NONE) {
-            return SENSOR_ERROR_READ_FAIL;
+            return VL53L1X_ERROR_READ_FAIL;
         }
     #endif
 
     if (Value) *Value = distance;
-    return SENSOR_ERROR_OK;
+    return VL53L1X_ERROR_OK;
 }
 
 VL53L1X_ErrorTypeDef wait_for_boot(uint32_t timeout) {
@@ -119,14 +119,14 @@ VL53L1X_ErrorTypeDef wait_for_boot(uint32_t timeout) {
 
     while ((HAL_GetTick() - start_tick) < timeout) {
         if (VL53L1X_BootState(app_state.pSensorHandle->Address, &state) != VL53L1X_ERROR_NONE) {
-            return SENSOR_ERROR_BOOT_FAIL;
+            return VL53L1X_ERROR_BOOT_FAIL;
         }
-        if (state) return SENSOR_ERROR_OK;
+        if (state) return VL53L1X_ERROR_OK;
 
         HAL_Delay(10);
     }
 
-    return SENSOR_ERROR_TIMEOUT;
+    return VL53L1X_ERROR_TIMEOUT;
 }
 
 void config_gpio() {

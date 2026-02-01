@@ -48,7 +48,9 @@ CHANDLER_ErrorTypeDef CHANDLER_Exec(CHANDLER_CommandTypeDef *Cmd) {
     if (Cmd == NULL) return CHANDLER_INVALID_ARG;
     if (!hchandler.Enabled) return CHANDLER_ERROR_DISABLED;
 
-    if (CHANDLER_ResponseCB(Cmd->method()) != 0) return CHANDLER_ERROR_IMPLEMENTATION;
+    Cmd->method(Cmd->Buf, Cmd->BufLen);
+
+    if (CHANDLER_ResponseCB(Cmd) != 0) return CHANDLER_ERROR_IMPLEMENTATION;
     return CHANDLER_ERROR_OK;
 }
 
@@ -65,4 +67,4 @@ void CHANDLER_Disable() {
  * @param response Response content to be transmitted
  * @return 0 -> OK\n 1 -> ERROR
  */
-__weak uint8_t CHANDLER_ResponseCB(char *response) {return 0;}
+__weak uint8_t CHANDLER_ResponseCB(CHANDLER_CommandTypeDef *Cmd) {return 0;}

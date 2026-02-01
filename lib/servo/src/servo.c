@@ -11,7 +11,7 @@
  * @param hservo Servo Handle
  * @param Cfg Sensor configuration structure
  */
-Servo_ErrorTypeDef Servo_Config(Servo_HandleTypeDef *hservo, Servo_ConfigTypeDef *Cfg) {
+SERVO_ErrorTypeDef SERVO_Config(SERVO_HandleTypeDef *hservo, SERVO_ConfigTypeDef *Cfg) {
 
     assert_param(IS_TIM_INSTANCE(Cfg->xTIM));
     assert_param(IS_TIM_CHANNELS(Cfg->Tim_Chan));
@@ -45,7 +45,7 @@ Servo_ErrorTypeDef Servo_Config(Servo_HandleTypeDef *hservo, Servo_ConfigTypeDef
  * @param hservo Servo Handle
  * @param Degrees 0 - 180 Degrees
  */
-Servo_ErrorTypeDef Servo_SetPosition(Servo_HandleTypeDef *hservo, uint16_t Degrees) {
+SERVO_ErrorTypeDef SERVO_SetPosition(SERVO_HandleTypeDef *hservo, uint16_t Degrees) {
     if (Degrees < 0 || Degrees > hservo->Max_Deg) {
         return SERVO_POS_ERR;
     }
