@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "app_config.h"
 #include "app_state.h"
 #include "stm32f4xx_hal.h"
 #include "clocks.h"
@@ -26,8 +27,6 @@ void handle_new_value(uint16_t value) {
     uint8_t opened = value < SENSOR_RANGE_OPEN_TRIGGER;
     if (opened) {
         SERVO_SetPosition(app_state.pServoHandle, SERVO_OPEN_ANGLE);
-        // TODO: Fix MCU not entering SLEEP mode
-        PWR_EnterSleepMode();
     } else {
         // Entering STANDBY mode will stop the PWM timer which will reset the servo
         PWR_EnterStandbyMode();
@@ -87,51 +86,51 @@ int main(void) {
             LOGGER_Log(LOGGER_LEVEL_ERROR, "Failed to read sensor data!");
         };
         handle_new_value(value);
-        return;
-    } else {
-        // Start UART commands reception
-        if (COMMANDS_ConfigRx(gUARTCommandInputBuffer, UART_COMMAND_INPUT_BUFFER_SIZE) != HAL_OK) {
-            LOGGER_Log(LOGGER_LEVEL_FATAL, "Failed to configure UART commands reception!");
-        };
-        if (COMMANDS_StartRx() != HAL_OK) {
-            LOGGER_Log(LOGGER_LEVEL_FATAL, "Failed to start UART commands reception!");
-        };
-
-        // VL53L1X_ConfigTypeDef Sensor_Cfg = {
-        //     .Mode = SENSOR_MODE_OUT_OF_DISTANCE,
-        //     .DistanceMode = SENSOR_DISTANCEMODE_SHORT,
-        //     .InterMeasMs = 500,
-        //     .TimingBudgetMs = SENSOR_TIMINGBUDGET_100,
-        //     .MinVal = 0,
-        //     .MaxVal = SENSOR_RANGE_OPEN_TRIGGER,
-        //     .InterGPIO = GPIOA,
-        //     .InterGPIOPin = GPIO_PIN_0,
-        //     .InterPolPositive = ENABLE,
-        //     .InterNVICPriority = CUSTOM_VL53L1X_INT_PRIORITY
-        // };
-        //
-        // if (
-        // VL53L1X_Config(
-        //     app_state.pSensorHandle,
-        //     Sensor_Cfg
-        // ) != SENSOR_ERROR_OK
-        // ) {
-        //     LOGGER_Log(LOGGER_LEVEL_ERROR, "Failed to configure sensor!");
-        // }
-
-        // Run tests
-        if (TESTS_Run() != TEST_RESULT_PASS) {
-            LOGGER_Log(LOGGER_LEVEL_FATAL, "Not all tests passed! Restarting MCU...");
-        };
+        return 0;
     }
 
+    // Start UART commands reception
+    if (COMMANDS_ConfigRx(gUARTCommandInputBuffer, UART_COMMAND_INPUT_BUFFER_SIZE) != HAL_OK) {
+        LOGGER_Log(LOGGER_LEVEL_FATAL, "Failed to configure UART commands reception!");
+    };
+    if (COMMANDS_StartRx() != HAL_OK) {
+        LOGGER_Log(LOGGER_LEVEL_FATAL, "Failed to start UART commands reception!");
+    };
+
+    VL53L1X_ConfigTypeDef Sensor_Cfg = {
+        .Mode = VL53L1X_MODE_WITHING_DISTANCE,
+        .DistanceMode = VL53L1X_DISTANCEMODE_SHORT,
+        .InterMeasMs = 500,
+        .TimingBudgetMs = VL53L1X_TIMINGBUDGET_100,
+        .MinVal = 0,
+        .MaxVal = SENSOR_RANGE_OPEN_TRIGGER,
+        .InterGPIO = GPIOA,
+        .InterGPIOPin = GPIO_PIN_0,
+        .InterPolPositive = ENABLE,
+        .InterNVICPriority = CUSTOM_VL53L1X_INT_PRIORITY
+    };
+
+    if (
+    VL53L1X_Config(
+        app_state.pSensorHandle,
+        Sensor_Cfg
+    ) != VL53L1X_ERROR_OK
+    ) {
+        LOGGER_Log(LOGGER_LEVEL_ERROR, "Failed to configure sensor!");
+    }
+
+    // Run tests
+    if (TESTS_Run() != TEST_RESULT_PASS) {
+        LOGGER_Log(LOGGER_LEVEL_FATAL, "Not all tests passed! Restarting MCU...");
+    };
+
     PWR_EnterStandbyMode();
+    return 0;
 }
 
 void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
     if (huart->Instance == app_state.pUARTHandle->Instance) {
         COMMANDS_Execute((char*)app_state.pUARTHandle->pRxBuffPtr);
-        // HAL_PWR_EnterSLEEPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFE);
     }
 }
 

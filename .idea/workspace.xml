@@ -29,27 +29,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4712c172-15e2-4a4c-97b2-d6be4fe3a76d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/include/logging.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/tests.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/tests-handler/include/tests_handler.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/tests-handler/src/tests_handler.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/logging.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tests.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/bill_of_materials.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/bill_of_materials.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/app_state.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/app_state.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/commands.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/commands.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/power.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/power.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/command-handler/include/cmd_handler.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/command-handler/include/cmd_handler.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/command-handler/src/cmd_handler.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/command-handler/src/cmd_handler.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/logger/src/log.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/logger/src/log.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/servo/include/servo.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/servo/include/servo.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/servo/src/servo.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/servo/src/servo.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/vl53l1x-custom-api/include/sensor.h" beforeDir="false" afterPath="$PROJECT_DIR$/lib/vl53l1x-custom-api/include/sensor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/vl53l1x-custom-api/src/sensor.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/vl53l1x-custom-api/src/sensor.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app_state.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/app_state.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/power.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/power.c" afterDir="false" />
     </list>
@@ -1959,6 +1939,56 @@
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectApplicationVersion">
     <option name="ide" value="CLion" />
@@ -2059,7 +2089,7 @@
       <workItem from="1769330586289" duration="78000" />
       <workItem from="1769330680141" duration="7018000" />
       <workItem from="1769424592122" duration="8895000" />
-      <workItem from="1769702190005" duration="42254000" />
+      <workItem from="1769702190005" duration="43318000" />
     </task>
     <servers />
   </component>
@@ -2070,22 +2100,6 @@
     <isAutomaticCheckingOnLaunch value="false" />
     <isAutomaticFoundErrors value="true" />
     <isAutomaticReloadCMake value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/main.c</url>
-          <line>127</line>
-          <option name="timeStamp" value="93" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/main.c</url>
-          <line>83</line>
-          <option name="timeStamp" value="94" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
