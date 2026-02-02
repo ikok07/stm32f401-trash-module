@@ -24,9 +24,9 @@ void LOGGER_InitBasicCB() {
 }
 
 void LOGGER_LogBasicCB() {
-    HAL_GPIO_WritePin(ERR_LED_GPIO, ERR_LED_PIN, ENABLE);
+    HAL_GPIO_WritePin(ERR_LED_GPIO, ERR_LED_PIN, GPIO_PIN_SET);
     HAL_Delay(2000);
-    HAL_GPIO_WritePin(ERR_LED_GPIO, ERR_LED_PIN, DISABLE);
+    HAL_GPIO_WritePin(ERR_LED_GPIO, ERR_LED_PIN, GPIO_PIN_RESET);
 }
 
 uint8_t LOGGER_DeInitCB() {
@@ -46,7 +46,7 @@ uint8_t LOGGER_LogCB(LOGGER_EventTypeDef *Event) {
 }
 
 uint8_t LOGGER_FatalCB(LOGGER_EventTypeDef *Event) {
-    HAL_GPIO_WritePin(ERR_LED_GPIO, ERR_LED_PIN, ENABLE);
+    HAL_GPIO_WritePin(ERR_LED_GPIO, ERR_LED_PIN, GPIO_PIN_SET);
 
     // Ignore error
     LOGGER_LogCB(Event);

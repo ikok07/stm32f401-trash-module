@@ -29,9 +29,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4712c172-15e2-4a4c-97b2-d6be4fe3a76d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/stm32f401-trash-module.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/stm32f401-trash-module.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/bill_of_materials.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/bill_of_materials.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logging.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/logging.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/power.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/power.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1990,6 +1992,13 @@
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
   </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="JtJ8QtK0" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
   <component name="ProjectApplicationVersion">
     <option name="ide" value="CLion" />
     <option name="majorVersion" value="2025" />
@@ -2008,11 +2017,13 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "OpenOCD Download & Run.stm32f401-trash-module.executor": "Debug",
+    "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.RadMigrateCodeStyle": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "RunOnceActivity.west.config.association.type.startup.service": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "cf.first.check.clang-format": "false",
@@ -2045,9 +2056,9 @@
     </key>
   </component>
   <component name="RunManager" selected="OpenOCD Download &amp; Run.stm32f401-trash-module">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="stm32f401-trash-module" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="stm32f401-trash-module" TARGET_NAME="stm32f401-trash-module" CONFIG_NAME="arm-cortex-m4" RUN_TARGET_PROJECT_NAME="stm32f401-trash-module" RUN_TARGET_NAME="stm32f401-trash-module">
@@ -2055,7 +2066,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="stm32f401-trash-module" type="com.jetbrains.cidr.embedded.openocd.conf.type" factoryName="com.jetbrains.cidr.embedded.openocd.conf.factory" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="stm32f401-trash-module" TARGET_NAME="stm32f401-trash-module" CONFIG_NAME="Debug" version="1" RUN_TARGET_PROJECT_NAME="stm32f401-trash-module" RUN_TARGET_NAME="stm32f401-trash-module">
+    <configuration name="stm32f401-trash-module" type="com.jetbrains.cidr.embedded.openocd.conf.type" factoryName="com.jetbrains.cidr.embedded.openocd.conf.factory" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="stm32f401-trash-module" TARGET_NAME="stm32f401-trash-module" CONFIG_NAME="arm-cortex-m4" version="1" RUN_TARGET_PROJECT_NAME="stm32f401-trash-module" RUN_TARGET_NAME="stm32f401-trash-module">
       <openocd version="1" gdb-port="3333" telnet-port="4444" board-config="$PROJECT_DIR$/openocd.cfg" reset-type="INIT" download-type="UPDATED_ONLY">
         <debugger kind="GDB" isBundled="true" />
       </openocd>
@@ -2089,7 +2100,8 @@
       <workItem from="1769330586289" duration="78000" />
       <workItem from="1769330680141" duration="7018000" />
       <workItem from="1769424592122" duration="8895000" />
-      <workItem from="1769702190005" duration="43318000" />
+      <workItem from="1769702190005" duration="45131000" />
+      <workItem from="1770025098073" duration="1794000" />
     </task>
     <servers />
   </component>
@@ -2100,6 +2112,14 @@
     <isAutomaticCheckingOnLaunch value="false" />
     <isAutomaticFoundErrors value="true" />
     <isAutomaticReloadCMake value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="com.jetbrains.cidr.embedded.openocd.conf.type">
+        <watch expression="gReadSensorValueTrigger" language="C++" />
+        <watch expression="gEnterStandbyModeTrigger" language="C++" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
